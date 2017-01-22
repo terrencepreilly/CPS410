@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.10.22)  22 JAN 2017 16:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.10.22)  22 JAN 2017 16:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -286,11 +286,11 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 17.
 )
 (./questions/question_2.tex) (./questions/question_3.tex)
-(./questions/question_4.tex) (./questions/question_5.tex)
-(./questions/question_6.tex) [1
+(./questions/question_4.tex [1
 
-{/usr/local/texlive/2016basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2
-] (./hw1.aux) ) 
+{/usr/local/texlive/2016basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]) (
+./questions/question_5.tex)
+(./questions/question_6.tex) [2] (./hw1.aux) ) 
 Here is how much of TeX's memory you used:
  3773 strings out of 494447
  53762 string characters out of 6166765
@@ -299,12 +299,12 @@ Here is how much of TeX's memory you used:
  6464 words of font info for 24 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
  38i,6n,32p,246b,219s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2016basic/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmbx12.pfb></usr/local/texlive/2016basic/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr12.pfb></usr/local/texlive/2016basic/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmr17.pfb></usr/local/texlive/2016basic/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmsy10.pfb>
-Output written on hw1.pdf (2 pages, 48023 bytes).
+</usr/local/texlive/2016basic/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2016basic
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2016ba
+sic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/201
+6basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on hw1.pdf (2 pages, 48540 bytes).
 PDF statistics:
  27 PDF objects out of 1000 (max. 8388607)
  18 compressed objects within 1 object stream
