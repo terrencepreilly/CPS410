@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.10.22)  22 JAN 2017 16:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.10.22)  22 JAN 2017 16:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -276,28 +276,38 @@ Overfull \hbox (46.741pt too wide) in paragraph at lines 12--12
  [][] 
  []
 
-(./questions/question_1.tex) (./questions/question_2.tex)
-(./questions/question_3.tex) (./questions/question_4.tex)
-(./questions/question_5.tex) (./questions/question_6.tex) [1
+(./questions/question_1.tex
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 17.
 
-{/usr/local/texlive/2016basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (.
-/hw1.aux) ) 
+(/usr/local/texlive/2016basic/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 17.
+)
+(./questions/question_2.tex) (./questions/question_3.tex)
+(./questions/question_4.tex) (./questions/question_5.tex)
+(./questions/question_6.tex) [1
+
+{/usr/local/texlive/2016basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2
+] (./hw1.aux) ) 
 Here is how much of TeX's memory you used:
- 3755 strings out of 494447
- 53435 string characters out of 6166765
- 120404 words of memory out of 5000000
- 7049 multiletter control sequences out of 15000+600000
- 6207 words of font info for 23 fonts, out of 8000000 for 9000
+ 3773 strings out of 494447
+ 53762 string characters out of 6166765
+ 123404 words of memory out of 5000000
+ 7064 multiletter control sequences out of 15000+600000
+ 6464 words of font info for 24 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 38i,6n,32p,683b,219s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2016basic/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmbx12.pfb></usr/local/texlive/2016basic/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr12.pfb></usr/local/texlive/2016basic/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmr17.pfb>
-Output written on hw1.pdf (1 page, 35667 bytes).
+ 38i,6n,32p,246b,219s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2016basic/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmbx12.pfb></usr/local/texlive/2016basic/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr12.pfb></usr/local/texlive/2016basic/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmr17.pfb></usr/local/texlive/2016basic/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmsy10.pfb>
+Output written on hw1.pdf (2 pages, 48023 bytes).
 PDF statistics:
- 20 PDF objects out of 1000 (max. 8388607)
- 13 compressed objects within 1 object stream
+ 27 PDF objects out of 1000 (max. 8388607)
+ 18 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
