@@ -1,0 +1,12 @@
+{
+  "name": "CPS410_Class_Project",
+  "version": "0.0.0",
+  "description": "Our class project for CPS410",
+  "main": "index.js",
+  "repository": "https://github.com/terrencepreilly/CPS410",
+  "author": "Terrence Reilly <reill1tp@cmich.edu>",
+  "license": "MIT",
+  "dependencies": {
+    "generator-latex-homework": "^0.0.3"
+  }
+}
