@@ -1,2 +1,6 @@
 .yo-rc.json
 node_modules/
+*.aux
+*.dvi
+*.pdf
+*.log
