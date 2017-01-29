@@ -4,11 +4,12 @@ from unittest import mock
 import pygame
 
 from lazer_blast.base_classes import (
+    ActorBase,
     RenderedBase,
     )
 
 
-class RenderedBaseTestClass(unittest.TestCase):
+class RenderedBaseTestCase(unittest.TestCase):
     # A fake subclass
     class Pantomime(RenderedBase):
         images = {
@@ -63,3 +64,32 @@ class RenderedBaseTestClass(unittest.TestCase):
             positional[2],
             rb.box,
             )
+
+
+class ActorBaseTestCase(unittest.TestCase):
+
+    def test_actor_base_has_health(self):
+        actor = ActorBase()
+        self.assertTrue(isinstance(actor.health, int))
+
+    def test_actor_can_have_weapons(self):
+        actor = ActorBase()
+        self.assertTrue(isinstance(actor.weapons, list))
+
+    def test_can_add_weapons_to_actor(self):
+        weapon1, weapon2 = 'A fake weapon', 'Another fake weapon'
+        actor = ActorBase(100, [weapon1])
+        self.assertEqual(actor.weapon, weapon1)
+        actor.add_weapon(weapon2)
+        actor.next_weapon()
+        self.assertEqual(actor.weapon, weapon2)
+        actor.next_weapon()
+        self.assertEqual(actor.weapon, weapon1)
+
+    def test_single_weapon_never_changes(self):
+        weapon1 = 'A fake weapon'
+        actor = ActorBase(100, [weapon1])
+        actor.add_weapon(weapon1)
+        self.assertEqual(actor.weapon, weapon1)
+        actor.next_weapon()
+        self.assertEqual(actor.weapon, weapon1)

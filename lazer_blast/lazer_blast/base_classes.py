@@ -48,4 +48,31 @@ class RenderedBase(object):
         return self.images[self._action][self._action_i - 1]
 
     def render(self, context):
+        """This should probably be updated once we have images."""
         pygame.draw.rect(context, (255, 0, 0), self.box)
+
+
+class ActorBase(object):
+    """Implements basic attributes of an actor."""
+
+    def __init__(self, health=0, weapons=list()):
+        self.health = health
+        self.weapons = weapons
+        self._weapon_i = -1 if len(self.weapons) == 0 else 0
+
+    def add_weapon(self, weapon):
+        """Adds a weapon to this actor's arsenal."""
+        if self._weapon_i == -1:
+            self._weapon_i = 0
+        self.weapons.append(weapon)
+
+    @property
+    def weapon(self):
+        """Get the current weapon for this player."""
+        if not (0 <= self._weapon_i < len(self.weapons)):
+            raise Exception('No weapons')
+        return self.weapons[self._weapon_i]
+
+    def next_weapon(self):
+        """Switch to the next weapon."""
+        self._weapon_i = (self._weapon_i + 1) % len(self.weapons)
