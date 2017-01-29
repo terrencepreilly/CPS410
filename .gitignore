@@ -4,3 +4,4 @@ node_modules/
 *.dvi
 *.pdf
 *.log
+*.tmp
