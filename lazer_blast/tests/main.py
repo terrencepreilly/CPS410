@@ -1,6 +1,7 @@
 import unittest
 from test_abstracts import (  # noqa: F401
-    RenderedBaseTestClass,
+    RenderedBaseTestCase,
+    ActorBaseTestCase,
     )
 
 if __name__ == '__main__':
