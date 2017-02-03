@@ -1,46 +1,51 @@
 % Chapter 6	Exception Handling
+\subsection*{Exception handling}
+    There are a number of exceptions that may occur and disrupt the
+    experience of the user.
 
-Exception handling
-There are a number of exceptions that may occur and disrupt the experience of 
-the user.
+\subsection*{Collision detection errors}
+    The users in-game character should be destroyed by colliding
+    with in-game enemies and laser beams. Should the game fail to
+    detect collisions, the in-game enemies or player may become
+    invulnerable. Should the collision detection produce
+    false-positives, the user may lose the game without failing to
+    dodge enemies and laser beams.
 
-Collision detection errors
-The users in-game character should be destroyed by colliding with in-game
-enemies and laser beams. Should the game fail to detect collisions, the in-game
-enemies or player may become invulnerable. Should the collision detection
-produce false-positives, the user may lose the game without failing to dodge
-enemies and laser beams.
+\subsection*{Movement errors}
+    The user's in-game character should remain on screen at all
+    times. If the code responsible for this task should fail, the
+    user's session will be disrupted.
 
-Movement errors
-The user's in-game character should remain on screen at all times. If the code
-responsible for this task should fail, the user's session will be disrupted.
+\subsection*{Audio exceptions}
+    If a user's audio drivers are missing or corrupted, the game's
+    sound will not function properly. Most properly-installed
+    operating systems should not encounter this exception.
 
-Audio exceptions
-If a user's audio drivers are missing or corrupted, the game's sound will not
-function properly. Most properly-installed operating systems should not
-encounter this exception.
+\subsection*{Frame-Rate Exceptions}
+    The game should update at a constant rate of rendered frames per
+    second. If the code responsible fails, the game may perform at
+    an accelerated pace on faster computers, making the game far
+    more difficult to play than on slower computers.
 
-Frame-Rate Exceptions
-The game should update at a constant rate of rendered frames per second. If the
-code responsible fails, the game may perform at an accelerated pace on faster
-computers, making the game far more difficult to play than on slower computers. 
+\subsection*{Graphics Scaling exceptions}
+    Depending on the resolution of the user's computer, the game
+    will have to scale its graphics to fit the screen. If there is
+    an error in scaling, the size and position of in-game objects
+    may become inconsistent between resolutions. For this reason the
+    game should be tested on a selection of common resolutions to
+    ensure this does not occur.
 
-Graphics Scaling exceptions
-Depending on the resolution of the user's computer, the game will have to scale
-its graphics to fit the screen. If there is an error in scaling, the size and 
-position of in-game objects may become inconsistent between resolutions. For 
-this reason the game should be tested on a selection of common resolutions to 
-ensure this does not occur.
+\subsection*{Invalid Inputs}
+    Whilst the user controls their character via keyboard input it
+    is possible they may press the wrong keys. Whilst the game
+    itself should not behave poorly even when an invalid key is
+    pressed, some operating systems such as Ubuntu and Windows may
+    change focus from the game's window, disrupting the user's session.
 
-Invalid Inputs
-Whilst the user controls their character via keyboard input it is possible they
-may press the wrong keys. Whilst the game itself should not behave poorly even
-when an invalid key is pressed, some operating systems such as Ubuntu and
-Windows may change focus from the game's window, disrupting the user's session.
-
-Unknown Inputs
-Upon the first use of the game, a user may not know which inputs correspond to
-which actions in the game. If this information is not made available to the user
-anywhere in the game, the user may learn the correct inputs by trial and error,
-or become frustrated and quit. Therefore the inputs should be made available to
-the player before they play for the first time.
+\subsection*{Unknown Inputs}
+    Upon the first use of the game, a user may not know which inputs
+    correspond to which actions in the game. If this information is
+    not made available to the user anywhere in the game, the user
+    may learn the correct inputs by trial and error, or become
+    frustrated and quit. Therefore the inputs should be made
+    available to the player before they play for the first time.
