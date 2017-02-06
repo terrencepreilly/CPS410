@@ -1,1 +1,23 @@
 % Chapter 5	Performance Description
+Most aspects of this game should feel instantaneous.  In a worst
+case scenario, the initial loading of the game, or loading the game
+from the menu, may take one or two seconds. (Simply to start the
+interpreter.)  This, unfortunately, is a problem with Python itself,
+since it must parse each included source file in order to load the game.
+We will attempt to minimize these performance issues by not including
+extraneous libraries.
+
+Python also has so-called "stop-the-world" garbage collection moments.
+Thankfully, these are far less frequent than in many other languages.
+Since the amount of objects being allocated is relatively small (even
+after a long game), this should not be a problem.  We will attempt
+to mitigate this by not abusing large classes in commonly used entities.
+
+The normal game-play aspects of the game should feel no lag, as there is
+no intensive computation taking place.  For the user to be able to
+focus on those few enemies with a certain color, we cannot crowd the
+screen too much.  So, the computer will have few entities to deal with.
+
+There will be no computationally expensive operations, such as path-finding.
+The enemies, at least in the first release, will simply target the player
+directly.
