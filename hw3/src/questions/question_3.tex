@@ -4,3 +4,35 @@
 % Class definitions
 % Pseudocode
 % Data file specifications if applicable
+\subsection*{Interface Specifications}
+    The classes \mintinline{python}{RenderedBase} and
+    \mintinline{python}{ActorBase} will form a basis for
+    the API for LazerBlast.  They describe all moving
+    objects, and all actors in the game.  Among their
+    most important functions, they will define a method
+    to set the current action.  They will also use Python's
+    magic methods to get the next frame of their actions.
+
+\subsection*{Class Definitions}
+    \begin{itemize}
+        \item \mintinline{python}{RenderedBase} will implement the basic
+        interface for any object which is rendered on the screen.
+        It provides a way of getting the next image in an sequence
+        for rendering.
+        \item \mintinline{python}{ActorBase} will describe the interface
+        for actors.  All objects which are rendered to the screen and
+        perform some action (the user and the enemies) will be subclasses
+        of this class.
+    \end{itemize}
+
+\subsection*{Pseudocode}
+    % Pseudo-code for Base Classes (Terrence's Portion)
+    \inputminted{python}{../assets/base_classes.py}
+
+\subsection*{Data File Specifications}
+    The data file for LazerBlast will consist of a
+    pickled state of all high scores, and, possibly,
+    of the current game state (if a user wants to
+    continue a longer game.)  The format itself is
+    decided by Python, and will represent the internal
+    python objects.
