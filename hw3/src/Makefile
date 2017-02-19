@@ -14,7 +14,8 @@ ifeq ($(UNAME), Darwin)
     BIBTEX = /Library/TeX/texbin/bibtex
 endif
 
-$(HW).pdf: $(HW).dvi
+.PHONY: $(HW).pdf
+$(HW).pdf: # $(HW).dvi
 	$(PDFLATEX) $(HW).tex
 
 $(HW).dvi: $(HW).tex $(QUESTIONS)
