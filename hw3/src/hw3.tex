@@ -25,19 +25,28 @@
 \begin{document}
     \maketitle
 
+    \clearpage
+    \tableofcontents
+    \clearpage
+
     \section*{External Design Specifications}
+    \addcontentsline{toc}{section}{External Design Specifications}
         \input{questions/question_1}
 
     \section*{Software Architectural Design Specifications}
+    \addcontentsline{toc}{section}{Software Architectural Design Specifications}
         \input{questions/question_2}
 
     \section*{Detailed Design Specifications}
+    \addcontentsline{toc}{section}{Detailed Design Specifications}
         \input{questions/question_3}
 
     \section*{Test Plan Specifications}
+    \addcontentsline{toc}{section}{Test Plan Specifications}
         \input{questions/question_4}
 
-    \section*{Appendix}
-        \input{questions/question_5}
+    % Appendix
+    \clearpage
+    \input{questions/question_5}
 
 \end{document}
