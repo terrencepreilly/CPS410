@@ -13,6 +13,10 @@
     most important functions, they will define a method
     to set the current action.  They will also use Python's
     magic methods to get the next frame of their actions.
+    
+    The class \mintinline{python}{MainMenu} is a basis for the User
+    Interfaces for LazerBlast. Through it, the user can navigate
+    through and access different parts of the game.
 
     % Meagon's portion
     The GameSound class will release a sound when it receives
@@ -48,11 +52,17 @@
         characteristics to that object based on information
         received. Once the object has been created, it will then
         be returned to the class which had called for it to be created.
+        \item \mintinline{python}{MainMenu} will allow the user to access
+        the main game and to view information such as the high scores
+        across sessions through options on a menu, such as New Game and
+        High Scores.
     \end{itemize}
 
 \subsection*{Pseudocode}
     % Pseudo-code for Base Classes (Terrence's Portion)
     \inputminted{python}{../assets/base_classes.py}
+    %Pseudo-code for Menus (Keefer's Portion)
+    \inputminted{python}{../assets/menus.py}
 
     % Pseudo-code for Sound and Projectiles (Meagon's Portion)
     \inputminted{python}{../assets/sounds_and_projectiles.py}
