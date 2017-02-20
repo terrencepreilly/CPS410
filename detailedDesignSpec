@@ -1,0 +1,78 @@
+Detailed Design Specifications
+
+Interface Specification
+    The GameSound class will release a sound when it receives
+    a command telling it that a missile has been fired by
+    the player or an enemy ship.  The sound will then be transmitted
+    through the game for the player to hear. 
+    The ShipProjectile class will contain a method which will create
+    the missile object, another method which will assign certain 
+    characteristics to the missile object such as whether it’s a
+    enemy missile or a player missile, and if a player missile then
+    the object will be assigned a color based on a command received
+    from the player telling the program which color the missile should
+    be. The object will then be returned to the class which had called
+    the ShipProjectile class in order to retrieve a missile object.
+
+Class Definitions
+
+    GameSound class will implement the sound aspects of the game which will
+    provide the missile objects with sound every time they are fired and
+    when they have made contact with the target ship.
+    
+    ShipProjectile class will create a new missile object when called and 
+    assign certain characteristics to that object based on information  
+    received. Once the object has been created, it will then be returned
+    to the class which had called for it to be created.
+
+Psuedocode
+
+    Class GameSound(string):
+       sounds = dict()
+       if string = ‘fire’
+          sounds = dict[‘fire’]
+       else if string = ‘hit’
+          sounds = dict[‘hit’]
+       else
+          error
+          sounds = none
+       sounds.play()
+
+   
+    Class ShipProjectile(stringC, stringT):
+       Color = ‘’
+       Type = ‘’
+       JAMMED = error
+       def _init_(self, color, type):
+          self.color = color
+          self.type = type
+       
+       def projectileColor(stringC):
+          if stringC = ‘blue’
+             color = stringC
+          else if stringC = ‘red’
+             color = stringC
+          else if stringC = ‘green’
+             color = string
+          else
+             color = ‘white’//default color, no hit points
+
+      
+
+      def projectileType(stringT):
+          if stringT = ‘enemy’
+            Type = stringT
+          else if stringT = ‘player’
+            Type = stringT
+          else
+            Type = ‘JAMMED’ //default, no fire of projectile
+      
+      //missile object = ShipProjectile(stringC, stringT)
+
+      return object
+          
+Data File Specifications
+
+The data file for LazerBlast will consist of input data received from the player in order to allow the program to determine when a sound file
+Needs to be accessed and played, as well as when to create a missile object and what characteristics to assign to that newly created object. 
+
