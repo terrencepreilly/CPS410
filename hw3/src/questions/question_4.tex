@@ -3,3 +3,102 @@
 % Performance tests
 % Stress tests
 % Functional tests
+In order to keep track of our tests we will be using a chart to
+track the test number, the test data, the test purpose, our expected
+results, and whether or not the test was successful. Below is a
+sample of the chart which we will be using to track our tests and
+their results.
+
+% Insert Table
+\begin{center}
+    \begin{tabular}{| p{0.125\linewidth} | p{0.125\linewidth} | p{0.125\linewidth} |
+                      p{0.125\linewidth} | p{0.125\linewidth} | p{0.125\linewidth} |}
+    \hline
+          Test No.
+        & Test Data
+        & Reason
+        & Expected Results
+        & Success
+        & Comments \\
+    \hline
+          1
+        & Enter temporary unlimited health for player
+        & To test hit on enemy player without taking damage.
+        & Enemy player will take hit and be terminated while colors match appropriately.
+        & Yes
+        & Test was able to be completed successfully.  \\
+    \hline
+          2
+        & Replace algorithm related to enemy ships.
+        & Trying to make the path our enemy ships follow more efficient.
+        & Enemy ships will follow same path using a more efficient algorithm.
+        & Enemy ships getting stuck when program is running with new
+          algorithm. Algorithm needs altered and further testing required.
+        & \\
+    \hline
+    \end{tabular}
+\end{center}
+
+
+Tests relating to the syntax of our program shall be performed
+through the use of both the unit test framework provided through
+Python, as well as a code review process which will involve
+developers reviewing each other’s code and offering any advice on
+possible found issues.
+
+\subsection*{Performance Tests}
+    The performance tests will be documented within our test
+    documentation sheet where we give the test data being used to
+    test the performance, the reason which will specify what exactly
+    relating to the performance is being tested, our expected
+    results, whether or not the test was successful, and any
+    additional comments which the team member who performed the
+    tests feels should be brought to the developers and users
+    attention.  Some of the steps that will be taken prior to
+    performance tests are to make sure that all of the correct
+    software has been installed so that the game may perform to the
+    best of its ability.
+
+    One of the main things which our performance tests will include
+    is the speed and smoothness of our programs flow since python
+    games created and ran within Pygame tend to have issues with
+    their speed. A lot of the issues relating to the performance
+    test are often related to the syntax used in developing the
+    game. Steps to avoid these being issues will include using
+    certain modules, libraries, or even just replacing the syntax
+    with something which may help to scientifically improve the
+    speed and overall performance of our game.
+
+\subsection*{Stress Tests}
+    The stress tests which will be performed in relation to our game
+    will include increasing the number of enemy ships to see how
+    many ships the program may be able to handle at once. This test
+    will allow our developers to determine what a good number of
+    enemy ships may be in order to provide the user with a smooth
+    flowing game as well as a challenge. This stress test will also
+    help developers in determining how well the path finding
+    algorithm will work for the chosen number of enemy ships at any
+    one time. Another test to be performed under the stress test
+    phase will be the intensity of the boss enemy ship and what all
+    factors may play in the fight between the player and the boss
+    ship. Once again this test will allow developers to provide the
+    players with a smooth flowing program as well as a challenging game.
+
+\subsection*{Functional Tests}
+    Once both the performance tests and stress tests have helped in
+    determining syntax, libraries, modules, and any other relating
+    factors to be used within the program, then functional tests
+    shall be performed by going through the game and focusing on
+    each phase and detail. Once our group has performed Alpha
+    testing of the game and have made sure that the game is
+    functioning as planned then the game shall be released to a
+    select group of individuals for Beta testing so that we may
+    receive feedback on any functionality issues which we missed.
+    During both the Alpha and Beta testing processes, documentation
+    shall take place in reporting each issue, the proposed solution,
+    testing of the program with the solution in place and a
+    recording of the results. Each reported issues shall be dealt
+    with and the process of Alpha and Beta testing will be repeated.
+    Once our group and those individuals chosen to participate in
+    the Beta testing process are satisfied with the games
+    functionality, we will consider all tests complete.
