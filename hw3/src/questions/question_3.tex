@@ -5,6 +5,7 @@
 % Pseudocode
 % Data file specifications if applicable
 \subsection*{Interface Specifications}
+    % Terrence's portion
     The classes \mintinline{python}{RenderedBase} and
     \mintinline{python}{ActorBase} will form a basis for
     the API for LazerBlast.  They describe all moving
@@ -12,6 +13,20 @@
     most important functions, they will define a method
     to set the current action.  They will also use Python's
     magic methods to get the next frame of their actions.
+
+    % Meagon's portion
+    The GameSound class will release a sound when it receives
+    a command telling it that a missile has been fired by
+    the player or an enemy ship.  The sound will then be transmitted
+    through the game for the player to hear.  The ShipProjectile
+    class will contain a method which will create the missile
+    object, another method which will assign certain characteristics
+    to the missile object such as whether it’s a enemy missile or a
+    player missile, and if a player missile then the object will be
+    assigned a color based on a command received from the player
+    telling the program which color the missile should be. The
+    object will then be returned to the class which had called the
+    ShipProjectile class in order to retrieve a missile object.
 
 \subsection*{Class Definitions}
     \begin{itemize}
@@ -23,16 +38,35 @@
         for actors.  All objects which are rendered to the screen and
         perform some action (the user and the enemies) will be subclasses
         of this class.
+        \item \mintinline{python}{GameSound} class will implement
+        the sound aspects of the game which will provide the
+        missile objects with sound every time they are fired and
+        when they have made contact with the target
+        ship.
+        \item \mintinline{python}{ShipProjectile} class will create
+        a new missile object when called and assign certain
+        characteristics to that object based on information
+        received. Once the object has been created, it will then
+        be returned to the class which had called for it to be created.
     \end{itemize}
 
 \subsection*{Pseudocode}
     % Pseudo-code for Base Classes (Terrence's Portion)
     \inputminted{python}{../assets/base_classes.py}
 
+    % Pseudo-code for Sound and Projectiles (Meagon's Portion)
+    \inputminted{python}{../assets/sounds_and_projectiles.py}
+
 \subsection*{Data File Specifications}
-    The data file for LazerBlast will consist of a
+    One data file for LazerBlast will consist of a
     pickled state of all high scores, and, possibly,
     of the current game state (if a user wants to
     continue a longer game.)  The format itself is
     decided by Python, and will represent the internal
     python objects.
+
+    Another data file for LazerBlast will consist of input data received
+    from the player in order to allow the program to determine when
+    a sound file needs to be accessed and played, as well as when to
+    create a missile object and what characteristics to assign to
+    that newly created object.
