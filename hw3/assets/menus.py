@@ -30,7 +30,15 @@ class MainMenu():
                 #Initialize options menu
         elif self.cursor.state == 2:
             #Point to option three (Exit)
+            if key down:
+                self.cursor.state == 3
+            elif key up:
+                self.cursor.state == 2
+            elif key return:
+                #open options menu
+        elif self.cursor.state == 3:
+            #Point to option three (Exit)
             if key up:
-                self.cursor.state == 0
+                self.cursor.state == 2
             elif key return:
                 #close the application
