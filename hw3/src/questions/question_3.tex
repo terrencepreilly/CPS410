@@ -23,11 +23,23 @@
         for actors.  All objects which are rendered to the screen and
         perform some action (the user and the enemies) will be subclasses
         of this class.
-    \end{itemize}
+        \item \mintinline{python}{Player} will extend the ActorBase to 
+        represent the user's spaceship. The Player will check for the user's
+        inputs when it is updated each frame.
+        \item \mintinline{python}{Enemy} will extend the ActorBase to represent
+        the enemy spaceships. As such, it will move on its own when updated
+        each frame.
+        \item \mintinline{python}{Blaster} will specify the behavior of a
+        laser of a particular color.
+        \item \mintinline{python}{LaserBeam} will give a graphic representation
+        of a laser being fired.
 
+    \end{itemize}
+    
 \subsection*{Pseudocode}
     % Pseudo-code for Base Classes (Terrence's Portion)
     \inputminted{python}{../assets/base_classes.py}
+    \inputminted{python}{../assets/ships.py}
 
 \subsection*{Data File Specifications}
     The data file for LazerBlast will consist of a
