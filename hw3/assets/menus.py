@@ -1,7 +1,7 @@
 #Keefer's section
 class MainMenu():
     def __init__(self, cursor=0):
-        #set the menu type (main/high score)
+        #set the menu type (main/high score/options)
 
         self.setup_graphic()
         self.setup_cursor()
@@ -15,13 +15,13 @@ class MainMenu():
 
     def update_cursor(self, keys):
         if self.cursor.state == 0:
-            #Point to option one (New Game/Return)
+            #Point to option one (New Game/Set buttons/Return)
             if key down:
                 self.cursor.state == 1
             elif key return:
-                #Initialize new game/return to previous menu
+                #Initialize new game/set keys/return to previous
         elif self.cursor.state == 1:
-            #Point to option two (High Scores)
+            #Point to option two (High Scores/return)
             if key down:
                 self.cursor.state == 2
             elif key up:
