@@ -16,7 +16,7 @@ class PlayerTestCase(unittest.TestCase):
     def test_player_stays_within_bounds(self):
         inputs = []
         ship = Player(world={})
-        ship.update(inputs)
+        ship.(inputs)
         self.assertEqual(1, ship.get_rect.x)
         self.assertTrue(False, 'Finish the test!')
 
