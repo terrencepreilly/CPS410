@@ -1,0 +1,50 @@
+digraph G {
+    node [shape="record"];
+    RenderedBase [label="{
+        RenderedBase |
+          {
+            + images : Dictionary \n
+            + sounds : Dictionary \n
+            - _action : String \n
+            - _action_i : Integer \n
+            + box : pygame.Rect
+          } | {
+            + set_action(action: String): Null \n
+            + __next__(): Image \n
+            + render(context: Context): Null \n
+          }
+        }"];
+    ActorBase [label="{
+        ActorBase |
+          {
+            + health : Integer \n
+            + weapons : List \n
+            - _weapon_i : Integer
+          } | {
+            + add_weapon(weapon: String): Null \n
+            + weapon: String \n
+            + next_weapon(): Null \n
+          }
+        }"];
+
+    Player [label="{Player | {} | {}}"];
+    Enemy [label="{Enemy | {} | {}}"];
+    Lazer [label="{Lazer | {} | {}}"];
+
+    // is-a
+    edge [dir="both", arrowtail="onormal", arrowhead="none"];
+    Player -> ActorBase;
+    Player -> RenderedBase;
+    Enemy -> ActorBase;
+    Enemy -> RenderedBase;
+    Lazer -> RenderedBase;
+
+    // has-a
+    edge [dir="both",
+          arrowtail="odiamond",
+          arrowhead="none",
+          taillabel="1 ",
+          headlabel="0..*"];
+    Player -> Lazer [headlabel="1..*"];
+    Enemy -> Lazer [headlabel="0..1"];
+}

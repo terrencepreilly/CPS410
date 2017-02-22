@@ -14,8 +14,14 @@ ifeq ($(UNAME), Darwin)
     BIBTEX = /Library/TeX/texbin/bibtex
 endif
 
-$(HW).pdf: $(HW).dvi
-	$(PDFLATEX) $(HW).tex
+.PHONY: $(HW).pdf
+$(HW).pdf: $(HW).dvi assets
+	$(PDFLATEX) $(HW).tex && \
+	    mv $(HW).pdf ../dist
+
+.PHONY: assets
+assets:
+	cd ../assets && $(MAKE)
 
 $(HW).dvi: $(HW).tex $(QUESTIONS)
 	$(LATEX) $(HW).tex
@@ -50,4 +56,5 @@ $(Q)7.tex:
 
 
 clean:
-	rm $(HW).pdf $(HW).dvi $(HW).aux $(HW).log $(HW).bbl $(HW).blg
+	rm -f $(HW).pdf $(HW).dvi $(HW).aux $(HW).log $(HW).bbl $(HW).blg $(HW).out && \
+	    cd ../assets && $(MAKE) clean
