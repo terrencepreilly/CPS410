@@ -99,6 +99,7 @@ ENV/
 .ropeproject
 
 # LaTeX
-.bbl
-.blg
-.out
+*.bbl
+*.blg
+*.out
+*_minted*
