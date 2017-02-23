@@ -29,7 +29,7 @@ digraph G {
 
     Player [label="{Player | {} | {}}"];
     Enemy [label="{Enemy | {} | {}}"];
-    Lazer [label="{Lazer | {} | {}}"];
+    Laser [label="{Laser | {} | {}}"];
 
     // is-a
     edge [dir="both", arrowtail="onormal", arrowhead="none"];
@@ -37,7 +37,7 @@ digraph G {
     Player -> RenderedBase;
     Enemy -> ActorBase;
     Enemy -> RenderedBase;
-    Lazer -> RenderedBase;
+    Laser -> RenderedBase;
 
     // has-a
     edge [dir="both",
@@ -45,6 +45,6 @@ digraph G {
           arrowhead="none",
           taillabel="1 ",
           headlabel="0..*"];
-    Player -> Lazer [headlabel="1..*"];
-    Enemy -> Lazer [headlabel="0..1"];
+    Player -> Laser [headlabel="1..*"];
+    Enemy -> Laser [headlabel="0..1"];
 }

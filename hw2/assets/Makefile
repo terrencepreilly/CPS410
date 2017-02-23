@@ -1,5 +1,5 @@
 fdps =
-dots = object_models.png
+dots = object_models.png functional_models.png
 circles =
 
 all: $(fdps) $(dots) $(circles)

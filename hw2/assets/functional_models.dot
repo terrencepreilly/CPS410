@@ -1,0 +1,70 @@
+digraph G {
+    // functions
+    node [shape="rectangle"];
+    {
+        rank="higher";
+        startGame [label="Start Game", shape="circle"];
+    }
+
+    userTakesDamage [label="User Takes Damage"];
+    enemyTakesDamage [label="Enemy Takes Damage"];
+
+    userHitsEnemy [label="User Hits Enemy"];
+    enemyHitsUser [label="Enemy Hits User"];
+
+    userDies [label="User Dies"];
+    enemyDies [label="Enemy Dies"];
+
+    userMoves [label="User Moves"];
+    enemyMoves [label="Enemy Moves"];
+
+    pointsIncrement [label="Points Incremented"];
+    spawnEnemy [label="Spawn Enemies"];
+
+    {
+        rank="same";
+        awaitEvent [label="Await Event"];
+        gameLoop [label="Game Loop"];
+    }
+
+    {
+        rank="lower";
+        endGame [label="End Game", shape="doublecircle"];
+    }
+
+    // connectives
+    node [shape="circle"];
+    or1 [label="Or"];
+    or2 [label="Or"];
+    and1 [label="And"];
+    and2 [label="And"];
+
+    // connections
+    startGame -> gameLoop [label="let points = 0"];
+    startGame -> awaitEvent;
+
+    enemyHitsUser -> userTakesDamage;
+    enemyHitsUser -> and1;
+    userDies -> and1;
+    and1 -> endGame;
+
+    userHitsEnemy -> enemyTakesDamage;
+    userHitsEnemy -> and2;
+    userHitsEnemy -> pointsIncrement [label="1 pt"];
+    enemyDies -> and2;
+    and2 -> pointsIncrement [label="10 pts"];
+
+    userHitsEnemy -> awaitEvent;
+    userMoves -> awaitEvent;
+
+    awaitEvent -> or1;
+    or1 -> userMoves;
+    or1 -> userHitsEnemy;
+    or1 -> userDies;
+
+    gameLoop -> or2;
+    or2 -> enemyMoves;
+    or2 -> enemyHitsUser;
+    or2 -> enemyDies;
+    gameLoop -> spawnEnemy [label=" p = 0.01"];
+}
