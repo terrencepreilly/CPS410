@@ -1,0 +1,52 @@
+digraph G {
+    start [label="", shape="circle"];
+    end [label="", shape="doublecircle"];
+
+    node [shape="ellipse"];
+    subgraph cluster_0 {
+        style="filled";
+        color="#71EEB8";
+        label="Player";
+        pf [label="fires"];
+        pm [label="moves"];
+        pt [label="gets hurt"];
+        pd [label="dies"];
+    }
+
+    subgraph cluster_1 {
+        style="filled";
+        color="powderblue";
+        label="Enemy";
+        es [label="spawns"];
+        ef [label="fires"];
+        em [label="moves"];
+        et [label="gets hurt"];
+        ed [label="dies"];
+    }
+
+    edge [weight="100"];
+    start -> pf;
+    pf -> pm [color="none"];
+    pm -> pt;
+    pt -> pd;
+    pd -> end;
+
+    start -> es;
+    es -> ef;
+    ef -> em [color="none"];
+    em -> et [color="none"];
+    et -> ed;
+    ed -> end;
+
+    edge [weight="10"];
+    pf -> et;
+    ef -> pt;
+    em -> pt;
+
+    edge [weight="1"];
+    start -> pm;
+    es -> em;
+
+    em -> ef;
+    pm -> pf;
+}

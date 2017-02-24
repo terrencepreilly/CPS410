@@ -3,27 +3,27 @@ digraph G {
     RenderedBase [label="{
         RenderedBase |
           {
-            + images : Dictionary \n
-            + sounds : Dictionary \n
-            - _action : String \n
-            - _action_i : Integer \n
-            + box : pygame.Rect
+            + images : Dictionary \l
+            + sounds : Dictionary \l
+            - _action : String \l
+            - _action_i : Integer \l
+            + box : pygame.Rect \l
           } | {
-            + set_action(action: String): Null \n
-            + __next__(): Image \n
-            + render(context: Context): Null \n
+            + set_action(action: String): Null \l
+            + __next__(): Image \l
+            + render(context: Context): Null \l
           }
         }"];
     ActorBase [label="{
         ActorBase |
           {
-            + health : Integer \n
-            + weapons : List \n
-            - _weapon_i : Integer
+            + health : Integer \l
+            + weapons : List \l
+            - _weapon_i : Integer \l
           } | {
-            + add_weapon(weapon: String): Null \n
-            + weapon: String \n
-            + next_weapon(): Null \n
+            + add_weapon(weapon: String): Null \l
+            + weapon: String \l
+            + next_weapon(): Null \l
           }
         }"];
 
