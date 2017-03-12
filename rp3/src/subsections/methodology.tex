@@ -1,0 +1,63 @@
+\subsection*{Overview of an Existing System}
+% - Describe the existing system from which you are to improve for your
+%  proposed research project.  Include its system architectures where
+%  appropriate
+% - Stress a specific area of the existing system where you are to focus on and
+%  indicate the value of your research and its contribution to the field.
+
+\subsection*{The Proposed System}
+% Overview
+Our proposed system is "Lazer Blast", an arcade-style shooter (like
+\href{https://en.wikipedia.org/wiki/Galaga}{Galaga}), which includes
+aspects of color matching and pattern matching similar to Simon.
+
+\subsubsection*{Game-play}
+The user pilots a small ship against hoards of enemies.  Each enemy
+has a given color.  The player must use a similar-colored laser to
+destroy that enemy.  For example, an enemy which is green much be
+shot with a green laser.  A red laser will have no effect on a green enemy.
+Waves of enemies come in patterns: an astute fighter will be able to
+predict the next wave from the previous, and will have a significant
+advantage over the enemy.
+
+Since the player cannot be expected to handle the copious masses
+of colorful enemies immediately, the difficulty of the game increases
+as the player progresses, starting with a single color and slowly
+adding other colors and increasing the speed.
+% TODO: Include back story?
+
+\subsubsection*{System Architecture}
+Lazer Blast was designed using Object-Oriented Design, and implemented
+with an Object-Oriented Approach using Python and the game library,
+\href{http://pygame.org/news}{pygame}.  Python was choosen for the
+ability to rapidly prototype, as well as its widespread use among
+the open-source community.  Object-Oriented Programming is well
+adapted to Python: Python, while being a multi-paradigm language,
+has a strong tendency towards Object-Oriented Programming.  The
+framework, pygame, was chosen due to its relative simplicity and due
+to its relative impartiallity towards individual implementation choices.
+
+In the Object-Oriented Design, all objects which are drawn to the screen
+are subclasses of the \mintinline{python}{RenderedBase} class.  All
+objects which perform some action subclass the \mintinline{python}{ActorBase}
+class.  For example, obstacles will be subclasses of
+\mintinline{python}{RenderedBase}, but all enemies will be subclasses of
+\mintinline{python}{ActorBase} and of \mintinline{python}{RenderedBase}.
+For the initial version of the game, there is only one obstacle,
+\mintinline{python}{Obstacle}, and only two types of actors:
+\mintinline{python}{Player} and \mintinline{python}{Enemy}.
+
+% Class diagram of RenderedBase, ActorBase, Obstacle, Enemy, and Player.
+
+\subsubsection*{Algorithms}
+
+% Algorithms
+Gratuitous use of Python's magic method, \mintinline{python}{__next__}
+was made to implement all sequential algorithms that were necessary.
+In this way, each object which maintained a state through a sequence
+acts as a generator.  This eases the complexity of logic, and makes
+maintaining state easier. (As the individual components exhibit looser
+coupling, and stronger cohesion.)  For example, the images to be blitted
+to the screen for a given actor are defined as follows:
+
+% Include RenderedBase.__next__ code.
