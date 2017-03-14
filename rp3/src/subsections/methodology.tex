@@ -4,6 +4,26 @@
 %  appropriate
 % - Stress a specific area of the existing system where you are to focus on and
 %  indicate the value of your research and its contribution to the field.
+Galaga's gameplay consists of managing the movement and firing of a ship in
+order to avoid incoming projectiles whilst scoring hits on enemy ships by firing
+their own. The crux of this system's architecture as well as our own is the ship
+class. The fields for the ship class include both a rect used for determining
+the position of the a ship and an image to represent it. In addition to a method
+for movement, a method for firing exists, which creates a projectile object. The
+projectile class posesses the same fields as the ship, but lacks the method for
+firing.
+
+A significant portion of the user's attention is drawn to the paths of moving
+projectiles. Our improvement upon this system is to do away with the projectile
+in favor of adding a weapon class which possesses a method to instantaneously 
+draw a laser beam on the screen and register damage to the enemies hit by it. 
+This instant damage allows the user to hit fast-moving targets by virtue of 
+reaction time rather than by prediction projectile and ship movements. To 
+introduce extra challenge for the user, both the ship and weapon class have
+color as a property. When registering damage, a weapon only damages a ship of
+matching color. A ship posesses a list of weapons and a method to switch
+the active weapon and fire it. This addition creates an imperative to match
+their ship's active weapon to the color of the enemy they are firing upon. 
 
 \subsection*{The Proposed System}
 % Overview
