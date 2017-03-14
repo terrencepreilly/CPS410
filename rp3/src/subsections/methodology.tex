@@ -69,6 +69,14 @@ For the initial version of the game, there is only one obstacle,
 
 % Class diagram of RenderedBase, ActorBase, Obstacle, Enemy, and Player.
 
+In addition to the \mintinline{python}{RenderedBase} and
+\mintinline{python}{ActorBase} classes, there is also the
+\mintinline{python}{Menus} class. The few menu screens that there are
+will be subclasses of \mintinline{python}{Menus} and include the Main
+Menu, High Scores, and Options screens, which can each be built off of
+the \mintinline{python}{Menus} class by simply changing the graphics
+on that screen.
+
 \subsubsection*{Algorithms}
 
 % Algorithms
@@ -81,3 +89,14 @@ coupling, and stronger cohesion.)  For example, the images to be blitted
 to the screen for a given actor are defined as follows:
 
 % Include RenderedBase.__next__ code.
+
+As for algorithms that may be used in \mintinline{python}{Menus}, they
+are fairly straightforward. For the most part, the only input that a
+user can make on a menu is moving the cursor, and that is simply
+incrementing and decrementing a counter based on which direction the
+user inputs, and this counter is read in order to redraw the cursor on
+the screen so that the user can see which selection they have highlighted.
+The only other input a user can make is selection, which moves the user
+from the current menu to another screen, or closes the application. The
+current menu is assigned by a variable to know which graphic to render for
+the user.
