@@ -1,0 +1,42 @@
+The game that we have drawn inspiration from is a 1980’s arcade game known as Galaga. Galaga was developed by Namco in 1981 and is a 
+shooter based game where the player tries to take down enemy ships by shooting at them. The enemy ships may be taken down in one or two 
+hits. Enemy ships requiring two hits are known as the Galaga and will turn blue after the first hit, indicating that there is one hit left 
+to take down the ship. While shooting at enemy ships the player must also avoid being hit by enemy fire while also avoiding the beam from 
+the Galaga looking to capture a players’ ship. If captured the players ship will remain imprisoned unless the Galaga is taken down 
+(Galaga 1-82).
+
+While our game, is similar to that of Galaga in the sense that the player will be battling against enemy ships which they must fire upon 
+through the use of a laser beam. The original version of Galaga does not include laser beams but instead has the player firing missiles at 
+the enemy ships. We have decided to implement laser beams within our game as a way for players to take down enemy ships at a faster rate 
+therefore allowing the player to take on more enemies in a shorter time frame. Not only will we be changing the weapon aspect of the game 
+but we will also include a color matching scheme which will require that the player change the color of their weapon to match the color of 
+the enemy ship that they are firing upon. If the laser color fired by the player does not match the color of the enemy ship that was hit 
+by it, then the enemy ship will take no damage. Our boss ship, like the Galaga will require more hits to be successfully taken down but 
+will differ in the sense that it will not include the beam that captures the players ship but instead will change colors requiring that 
+the player also change their color of weapon to continue successfully hitting the boss ship. If the player is not able to keep up with 
+the color changing, then they will likely be taken down by enemy fire.  
+
+The reason which we have chosen to implement the color matching scheme within our game was not only a way to separate our game from the 
+original but it also adds a more challenging aspect to the game, plus the modification includes statistically proven health benefits. 
+There have been studies done proving that color matching within games increases the cognitive development and skills within those 
+individuals playing them (Elizabeth M. Zelinski), in both adults and children alike (Franceschini S). 
+
+While the original games source code is not available, it is likely that it was written in assembly as most arcade style games 
+created between in the 1970’s through the early 1990’s were. However, our game will be written using Python and will require the Pygame 
+software in order to run.  The original system architecture did require 8-bit hardware created by Nameco as well as other up to date 
+hardware and software capable of reading the assembly language so that the game could successfully run. One of the reasons we have chosen 
+to use Python over Assembly is because more developers are familiar with Python which will assure that updates and maintenance on the code 
+of the game will be done as required. Also the Python language has more third party libraries available to it should the game later be 
+modified as a way to appeal to future generations ("Python Vs Assembler | Programming Languages | Hammer Principle"). 
+
+Reference
+
+Elizabeth M. Zelinski, Ricardo Reyes. "Cognitive Benefits Of Computer Games For Older Adults". PubMed Central (PMC). 
+  N.p., 2017. Web. 15 Mar. 2017.
+
+Franceschini S, et al. "Action Video Games Make Dyslexic Children Read Better. - Pubmed - 	NCBI". Ncbi.nlm.nih.gov. 
+  N.p., 2017. Web. 15 Mar. 2017.
+
+Galaga. 1st ed. Franklin Park, IL: Midway MFG Co, 1981. Web. 14 Mar. 2017.
+
+"Python Vs Assembler | Programming Languages | Hammer Principle". Hammerprinciple.com. N.p., 	2017. Web. 15 Mar. 2017.
