@@ -4,15 +4,26 @@
 %  appropriate
 % - Stress a specific area of the existing system where you are to focus on and
 %  indicate the value of your research and its contribution to the field.
+The game that we have drawn inspiration from is a 1980’s arcade game
+known as Galaga. Galaga was developed by Namco in 1981 and is a
+shooter based game where the player tries to take down enemy ships
+by shooting at them. The enemy ships may be taken down in one or two
+hits. Enemy ships requiring two hits are known as the Galaga and
+will turn blue after the first hit, indicating that there is one hit
+left to take down the ship. While shooting at enemy ships the player
+must also avoid being hit by enemy fire while also avoiding the beam
+from the Galaga looking to capture a players’ ship. If captured the
+players ship will remain imprisoned unless the Galaga is taken down.
+
 Galaga's gameplay consists of managing the movement and firing of a
 ship in order to avoid incoming projectiles whilst scoring hits on
 enemy ships by firing their own. The crux of this system's
 architecture as well as our own is the ship class. The fields for
-the ship class include both a rect used for determining the position
-of the a ship and an image to represent it. In addition to a method
-for movement, a method for firing exists, which creates a projectile
-object. The projectile class posesses the same fields as the ship,
-but lacks the method for firing.
+the ship class include both a \mintinline{python}{rect} used for
+determining the position of the ship and an image to represent it.
+In addition to a method for movement, a method for firing exists,
+which creates a projectile object. The projectile class possesses the
+same fields as the ship, but lacks the method for firing.
 
 A significant portion of the user's attention is drawn to the paths
 of moving projectiles. Our improvement upon this system is to do
@@ -23,7 +34,7 @@ damage allows the user to hit fast-moving targets by virtue of
 reaction time rather than by prediction projectile and ship
 movements. To introduce extra challenge for the user, both the ship
 and weapon class have color as a property. When registering damage,
-a weapon only damages a ship of matching color. A ship posesses a
+a weapon only damages a ship of matching color. A ship possesses a
 list of weapons and a method to switch the active weapon and fire
 it. This addition creates an imperative to match their ship's active
 weapon to the color of the enemy they are firing upon.
@@ -35,7 +46,25 @@ pygame.  It is, therefore, an easy system to compare to our own.
 Pylaga's enemies and players lack our concept of color.  Pylaga's
 class structure is as follows:
 
-% Class diagram.
+\begin{figure*}
+    \includegraphics[width=0.75\textwidth]{../images/pylaga}
+    \caption{Pylaga's Class Diagram}
+\end{figure*}
+
+It is clear from the above diagram that the author did not implement
+class inheritance, but used classes just for identification purposes
+and for storing some functionality.  Much of the actual data was not
+encapsulated, but stored in global variables.  Our version will be a
+marked improvement upon this. In particular, objects on the screen
+will inherit from the \mintinline{python}{RenderedBase} class, and
+moving objects will inherit the relevant code from
+\mintinline{python}{ActorBase}.  This will lead to greater maintainability
+and core re-use.
+
+\begin{figure*}
+    \includegraphics[width=0.75\textwidth]{../images/object_models}
+    \caption{Our Class Diagram}
+\end{figure*}
 
 The author of Pylaga implemented a player shooting using the following
 method:

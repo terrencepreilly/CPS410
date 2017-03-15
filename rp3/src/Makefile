@@ -18,7 +18,7 @@ endif
 $(HW).pdf: $(HW).dvi
 	$(PDFLATEX) $(HW).tex && mv $(HW).pdf ../dist
 
-$(HW).dvi: $(HW).tex $(QUESTIONS)
+$(HW).dvi: $(HW).tex $(QUESTIONS) images
 	$(LATEX) $(HW).tex
 
 .PHONY: citations
@@ -26,6 +26,10 @@ citations: $(HW).bbl
 
 $(HW).bbl: $(HW).bib
 	$(BIBTEX) $(HW) && $(LATEX) $(HW).tex && $(LATEX) $(HW).tex
+
+.PHONY: images
+images:
+	cd ../images && $(MAKE)
 
 
 
