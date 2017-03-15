@@ -1,0 +1,39 @@
+  #GameSound class will implement the sound aspects of the game which will 
+  #provide the lasers with sound every time they are activated, will play a 
+  #crashing sound when a specific colored laser hits the matching colored 
+  #target, will provide a sound specific to the player losing the game as 
+  #well as the winning sound once the game has been won.
+    
+  class GameSound(command):
+
+	  dict = {‘fire’:laserFire.wav, ‘hit’:directHit.wav, 	‘win’:playerWon.wav, ‘lose’:playerLost.wav}
+       sound = dict[command]
+       pygame.mixer.init()
+       pygame.mixer.music.load(sound)
+       pygame.mixer.music.play()
+   
+   #LazerStrike class will display a laser object of a specific color 
+   #when a certain key is selected. If the laser is of the same color as 
+   #the enemy target and makes contact, then this class will call the     
+   #GameSound() class in order to implement the crashing sound that will   
+   #return from a direct hit. This class will also call the Enemy() class 
+   #in order to deduct health upon a hit. 
+
+  class LazerStrike(lazerColor, enemyColor):
+	  JAMMED = error
+    color = (0,0,0)
+    enemyC = ‘’
+
+     def _init_(self, color, enemyC):
+        self.color = color
+        self.enemyC = enemyC
+       
+    def lazerColor(color):
+		  color = lazerColor
+
+	  def enemyColor(enemyC):
+		  enemyC = enemyColor
+
+	  if lazerColor == enemyColor:
+		  GameSound(‘hit’)
+		  #access class to deduct enemy health points for direct hit
