@@ -72,6 +72,14 @@ For the initial version of the game, there is only one obstacle,
 
 % Class diagram of RenderedBase, ActorBase, Obstacle, Enemy, and Player.
 
+In addition to the \mintinline{python}{RenderedBase} and
+\mintinline{python}{ActorBase} classes, there is also the
+\mintinline{python}{Menus} class. The few menu screens that there are
+will be subclasses of \mintinline{python}{Menus} and include the Main
+Menu, High Scores, and Options screens, which can each be built off of
+the \mintinline{python}{Menus} class by simply changing the graphics
+on that screen.
+
 \subsubsection*{Algorithms}
 
 % Algorithms
@@ -83,22 +91,33 @@ maintaining state easier. (As the individual components exhibit looser
 coupling, and stronger cohesion.)  For example, the images to be blitted
 to the screen for a given actor are defined as follows:
 
-\inputminted{python}{../code/RenderedBase.py}
+\inputminted[baselinestretch=1]{python}{../code/RenderedBase.py}
 
-The \mintedinline{python}{GameSound} class will implement the sound
+The \mintinline{python}{GameSound} class will implement the sound
 aspects of the game.  It will provide the lasers with sound every
 time they are activated, will play a crashing sound when a specific
 colored laser hits the matching colored target and will provide a
 sound specific to the player losing or winning the game.
 
-\inputminted{python}{../code/GameSound.py}
+\inputminted[baselinestretch=1]{python}{../code/GameSound.py}
 
-The \mintidinline{python}{LaserStrike} class will display a laser
+The \mintinline{python}{LaserStrike} class will display a laser
 object of a specific color when a certain key is selected. If the
 laser is of the same color as the enemy target and makes contact,
-then this class will call the \mintedinline{python}{GameSound} class
+then this class will call the \mintinline{python}{GameSound} class
 in order to implement the crashing sound that will return from a
-direct hit. This class will also call the \mintedinline{python}{Enemy}
+direct hit. This class will also call the \mintinline{python}{Enemy}
 class in order to deduct health upon a hit.
 
-\inputminted{python}{../code/LaserStrike.py}
+\inputminted[baselinestretch=1]{python}{../code/LaserStrike.py}
+
+As for algorithms that may be used in \mintinline{python}{Menus}, they
+are fairly straightforward. For the most part, the only input that a
+user can make on a menu is moving the cursor, and that is simply
+incrementing and decrementing a counter based on which direction the
+user inputs, and this counter is read in order to redraw the cursor on
+the screen so that the user can see which selection they have highlighted.
+The only other input a user can make is selection, which moves the user
+from the current menu to another screen, or closes the application. The
+current menu is assigned by a variable to know which graphic to render for
+the user.
