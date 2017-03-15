@@ -4,26 +4,29 @@
 %  appropriate
 % - Stress a specific area of the existing system where you are to focus on and
 %  indicate the value of your research and its contribution to the field.
-Galaga's gameplay consists of managing the movement and firing of a ship in
-order to avoid incoming projectiles whilst scoring hits on enemy ships by firing
-their own. The crux of this system's architecture as well as our own is the ship
-class. The fields for the ship class include both a rect used for determining
-the position of the a ship and an image to represent it. In addition to a method
-for movement, a method for firing exists, which creates a projectile object. The
-projectile class posesses the same fields as the ship, but lacks the method for
-firing.
+Galaga's gameplay consists of managing the movement and firing of a
+ship in order to avoid incoming projectiles whilst scoring hits on
+enemy ships by firing their own. The crux of this system's
+architecture as well as our own is the ship class. The fields for
+the ship class include both a rect used for determining the position
+of the a ship and an image to represent it. In addition to a method
+for movement, a method for firing exists, which creates a projectile
+object. The projectile class posesses the same fields as the ship,
+but lacks the method for firing.
 
-A significant portion of the user's attention is drawn to the paths of moving
-projectiles. Our improvement upon this system is to do away with the projectile
-in favor of adding a weapon class which possesses a method to instantaneously 
-draw a laser beam on the screen and register damage to the enemies hit by it. 
-This instant damage allows the user to hit fast-moving targets by virtue of 
-reaction time rather than by prediction projectile and ship movements. To 
-introduce extra challenge for the user, both the ship and weapon class have
-color as a property. When registering damage, a weapon only damages a ship of
-matching color. A ship posesses a list of weapons and a method to switch
-the active weapon and fire it. This addition creates an imperative to match
-their ship's active weapon to the color of the enemy they are firing upon. 
+A significant portion of the user's attention is drawn to the paths
+of moving projectiles. Our improvement upon this system is to do
+away with the projectile in favor of adding a weapon class which
+possesses a method to instantaneouslyg draw a laser beam on the
+screen and register damage to the enemies hit by it.g This instant
+damage allows the user to hit fast-moving targets by virtue ofg
+reaction time rather than by prediction projectile and ship
+movements. Tog introduce extra challenge for the user, both the ship
+and weapon class have color as a property. When registering damage,
+a weapon only damages a ship of matching color. A ship posesses a
+list of weapons and a method to switch the active weapon and fire
+it. This addition creates an imperative to match their ship's active
+weapon to the color of the enemy they are firing upon.
 
 \subsection*{The Proposed System}
 % Overview
@@ -80,4 +83,22 @@ maintaining state easier. (As the individual components exhibit looser
 coupling, and stronger cohesion.)  For example, the images to be blitted
 to the screen for a given actor are defined as follows:
 
-% Include RenderedBase.__next__ code.
+\inputminted{python}{../code/RenderedBase.py}
+
+The \mintedinline{python}{GameSound} class will implement the sound
+aspects of the game.  It will provide the lasers with sound every
+time they are activated, will play a crashing sound when a specific
+colored laser hits the matching colored target and will provide a
+sound specific to the player losing or winning the game.
+
+\inputminted{python}{../code/GameSound.py}
+
+The \mintidinline{python}{LaserStrike} class will display a laser
+object of a specific color when a certain key is selected. If the
+laser is of the same color as the enemy target and makes contact,
+then this class will call the \mintedinline{python}{GameSound} class
+in order to implement the crashing sound that will return from a
+direct hit. This class will also call the \mintedinline{python}{Enemy}
+class in order to deduct health upon a hit.
+
+\inputminted{python}{../code/LaserStrike.py}
