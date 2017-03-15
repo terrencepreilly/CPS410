@@ -17,20 +17,50 @@ but lacks the method for firing.
 A significant portion of the user's attention is drawn to the paths
 of moving projectiles. Our improvement upon this system is to do
 away with the projectile in favor of adding a weapon class which
-possesses a method to instantaneouslyg draw a laser beam on the
-screen and register damage to the enemies hit by it.g This instant
-damage allows the user to hit fast-moving targets by virtue ofg
+possesses a method to instantaneously draw a laser beam on the
+screen and register damage to the enemies hit by it. This instant
+damage allows the user to hit fast-moving targets by virtue of
 reaction time rather than by prediction projectile and ship
-movements. Tog introduce extra challenge for the user, both the ship
+movements. To introduce extra challenge for the user, both the ship
 and weapon class have color as a property. When registering damage,
 a weapon only damages a ship of matching color. A ship posesses a
 list of weapons and a method to switch the active weapon and fire
 it. This addition creates an imperative to match their ship's active
 weapon to the color of the enemy they are firing upon.
 
+An open-source clone of Galaga which we chose to examine and improve
+upon is \href{https://code.google.com/archive/p/pylaga/source/default/source}{Pylaga}.
+Pylaga is an implementation of Galaga written in python, and using
+pygame.  It is, therefore, an easy system to compare to our own.
+Pylaga's enemies and players lack our concept of color.  Pylaga's
+class structure is as follows:
+
+% Class diagram.
+
+The author of Pylaga implemented a player shooting using the following
+method:
+
+\inputminted[baselinestretch=1]{python}{../code/pylaga_player.py}
+
+This is a rather messy method, as it alters the state of its parameters,
+rather than updating a member of the class.  Our proposed algorithm,
+below, will be a substantial improvement upon it.
+
+For rendering images, the author of Pylaga chose to use global variables
+which are accessed and updated in each class's \mintinline{python}{update}
+method.  The definitions and the update methods are:
+
+\inputminted[baselinestretch=1]{python}{../code/pylaga_images_and_update.py}
+
+The use of global variables here exhibits low cohesion among the
+components of the game.  No other components but the player class
+are concerned with what image the player is represented with; yet
+all have access.  Our system will leverage python's \mintinline{python}{__next__}
+``magic method'' (also known as a ``dunders'' method) to increase component
+cohesion.
+
 \subsection*{The Proposed System}
-% Overview
-Our proposed system is "Lazer Blast", an arcade-style shooter (like
+Our proposed system is ``Lazer Blast'', an arcade-style shooter (like
 \href{https://en.wikipedia.org/wiki/Galaga}{Galaga}), which includes
 aspects of color matching and pattern matching similar to Simon.
 
@@ -47,7 +77,6 @@ Since the player cannot be expected to handle the copious masses
 of colorful enemies immediately, the difficulty of the game increases
 as the player progresses, starting with a single color and slowly
 adding other colors and increasing the speed.
-% TODO: Include back story?
 
 \subsubsection*{System Architecture}
 Lazer Blast was designed using Object-Oriented Design, and implemented
@@ -101,9 +130,11 @@ sound specific to the player losing or winning the game.
 
 \inputminted[baselinestretch=1]{python}{../code/GameSound.py}
 
-The \mintinline{python}{LaserStrike} class will display a laser
-object of a specific color when a certain key is selected. If the
-laser is of the same color as the enemy target and makes contact,
+Our primary improvement over Galaga and Galaga-like clones is
+adding a color component.  The actual logic for this component
+is simple.  The \mintinline{python}{LaserStrike} class will display a
+laser object of a specific color when a certain key is selected. If
+the laser is of the same color as the enemy target and makes contact,
 then this class will call the \mintinline{python}{GameSound} class
 in order to implement the crashing sound that will return from a
 direct hit. This class will also call the \mintinline{python}{Enemy}
