@@ -22,8 +22,8 @@ def main():
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
-            result = active_scene.update()
-            if result == False:
+            finished = active_scene.update()
+            if finished == True:
               if active_scene == game:
                 active_scene = menu
               elif active_scene == menu:

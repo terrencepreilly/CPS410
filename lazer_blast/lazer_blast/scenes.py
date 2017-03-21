@@ -5,12 +5,15 @@ class Game(object):
   """ The scene containing gameplay. """
   def __init__(self):
     enemies = []
+    beams = []
     player = None
+    background = None
     
   def update(self):
     """ Updates the scene and returns true if game is finished
         its execution. """
     return False
+    
 
 class Menu(object):
   """ The scene containing the title screen and options. """
@@ -20,4 +23,4 @@ class Menu(object):
   def update(self):
     """ Updates the menu and returns true if menu is finished 
         its execution.  """
-    return False
+    return True
