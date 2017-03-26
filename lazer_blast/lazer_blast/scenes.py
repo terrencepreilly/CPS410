@@ -1,7 +1,8 @@
 # This module contains scenes that can be updates interchangeably
 # within the main loop of the game.
 import pygame
-import settings
+from lazer_blast import settings
+from lazer_blast.ships import Player
 
 
 class Game(object):
@@ -10,21 +11,21 @@ class Game(object):
     def __init__(self, screen):
         self.enemies = []
         self.beams = []
-        self.player = None
+        self.player = Player()
         self.background = None
         self.running = True
         self.screen = screen
         self.clock = pygame.time.Clock()
 
-    def handle_action(self, key):
+    def handle_keydown(self, key):
         if key == pygame.K_a:
-            print('a pressed')
+            self.player.momentum = (-1, self.player.momentum[1])
         elif key == pygame.K_s:
-            print('s pressed')
+            self.player.momentum = (self.player.momentum[0], 1)
         elif key == pygame.K_d:
-            print('d pressed')
+            self.player.momentum = (1, self.player.momentum[1])
         elif key == pygame.K_w:
-            print('w pressed')
+            self.player.momentum = (self.player.momentum[0], -1)
         elif key == pygame.K_SPACE:
             print('space pressed')
         elif key == pygame.K_e:
@@ -34,8 +35,19 @@ class Game(object):
         elif key == pygame.K_ESCAPE:
             self.running = False
 
+    def handle_keyup(self, key):
+        if key == pygame.K_a:
+            self.player.momentum = (0, self.player.momentum[1])
+        elif key == pygame.K_s:
+            self.player.momentum = (self.player.momentum[0], 0)
+        elif key == pygame.K_d:
+            self.player.momentum = (0, self.player.momentum[1])
+        elif key == pygame.K_w:
+            self.player.momentum = (self.player.momentum[0], 0)
+
     def run(self):
         self.running = True
+        settings.ITEMS = ('Resume', settings.ITEMS[1], settings.ITEMS[2])
         while self.running:
             # Limit frame speed to 60 FPS
             self.clock.tick(settings.FPS)
@@ -43,17 +55,21 @@ class Game(object):
             # Handle key presses
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    mainloop = False
+                    self.running = False
                 if event.type == pygame.KEYDOWN:
-                    self.handle_action(event.key)
+                    self.handle_keydown(event.key)
+                if event.type == pygame.KEYUP:
+                    self.handle_keyup(event.key)
 
             # Render items
             self.screen.fill(settings.BG_COLOR)
 
             for enemy in self.enemies:
-                self.screen.blit(*enemy.render())
-            if self.player is not None:  # TODO Remove check once player loaded
-                self.screen.blit(*self.player.render())
+                enemy.render(self.screen)
+            self.player.render(self.screen)
+
+            # Once there are images, this is what should be rendered
+            next(self.player)
 
             pygame.display.flip()
 
@@ -102,16 +118,20 @@ class _MenuItems(object):
 
             posx = (settings.SCREEN_WIDTH / 2) - (width / 2)
             totalHeight = len(settings.ITEMS) * height
-            posy = (settings.SCREEN_HEIGHT / 2) - (totalHeight / 2) + (index * height)
+            posy = (
+                (settings.SCREEN_HEIGHT / 2)
+                - (totalHeight / 2)
+                + (index * height)
+                )
 
             ret.append([label, (posx, posy)])
         return ret
 
 
-#The menu class implements the main menu for the game, which can
-#in turn navigate to the game, a future high score table once the
-#scoring system is in place within the game, as well as quitting
-#the application.
+# The menu class implements the main menu for the game, which can
+# in turn navigate to the game, a future high score table once the
+# scoring system is in place within the game, as well as quitting
+# the application.
 
 class Menu(object):
     """The scene containing the title screen and options."""
@@ -148,7 +168,7 @@ class Menu(object):
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    mainloop = False
+                    self.running = False
                 if event.type == pygame.KEYDOWN:
                     self.item_select(event.key)
 

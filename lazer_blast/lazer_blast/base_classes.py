@@ -45,6 +45,8 @@ class RenderedBase(object):
         if self._action_i == -1:
             raise Exception('Action must be set')
         self._action_i += 1
+        if self._action_i == len(self.images[self._action]):
+            self._action_i = 0
         return self.images[self._action][self._action_i - 1]
 
     def render(self, context):

@@ -9,3 +9,6 @@ FONT = 'Arial'
 FONT_SIZE = 30
 FONT_COLOR = (255, 255, 255)
 ITEMS = ('Start Game', 'High Scores', 'Quit')
+
+# Player Settings
+SPEED = 5

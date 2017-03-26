@@ -1,12 +1,9 @@
 # This module initializes pygame and runs the main loop for the
 # game.
-#
 
 import pygame
-import sys
-from scenes import Menu, MenuActions
-from pygame.locals import QUIT
-import settings
+from lazer_blast import settings
+from lazer_blast.scenes import Menu
 
 
 if __name__ == '__main__':
