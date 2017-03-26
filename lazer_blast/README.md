@@ -16,3 +16,24 @@ Since the player cannot be expected to handle the copious masses
 of colorful enemies immediately, the difficulty of the game increases
 as the player progresses, starting with a single color and slowly
 adding other colors and increasing the speed.
+
+## Instructions
+
+1. Clone the repository.
+
+
+2. Install the requirements and game:
+    ```
+    pip install -r requirements.txt
+    python setup.py install
+    ```
+  *NB.* In the future, the requirements should be handled by the
+  setup file.
+
+3. Run the game:
+    ```
+    python driver.py
+    ```
+
+*NB.* Using a `virtualenv` would be preferable, but it does not
+work (at least, not on a mac.)  See [this](https://bitbucket.org/pygame/pygame/issues/203/window-does-not-get-focus-on-os-x-with)

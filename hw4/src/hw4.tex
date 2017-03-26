@@ -4,38 +4,53 @@
 \usepackage{graphicx}
 \usepackage{minted}
 \usepackage{titling}
+\usepackage{pdfpages}
+\usepackage[ampersand]{easylist}
 \usepackage[colorlinks=true]{hyperref}
 \setkeys{Gin}{width=\linewidth}
 \usepackage[margin=1.0in]{geometry}
 
 \input{homework_title}
-\author{%
-    Reilly, Terrence\
-    \and
-    Justice, James\
-    \and
-    Maresh, Keefer\
-    \and
-    Gleason, Meagon\
-}
+
+%\author{%
+%    Reilly, Terrence\
+%    \and
+%    Justice, James\
+%    \and
+%    Goodall, Brad\
+%    \and
+%    Maresh, Keefer\
+%    \and
+%    Gleason, Meagon\
+%}
+
 \title{Phase IV}
 \course{CPS410}
 
 \begin{document}
     \maketitle
 
+    \clearpage
+    \tableofcontents
+    \clearpage
+
     \section*{Implementation Languages}
+    \addcontentsline{toc}{section}{Implementation Languages}
         \input{questions/question_1}
 
     \section*{Classes/Functions Implemented}
+    \addcontentsline{toc}{section}{Classes/Functions Implemented}
         \input{questions/question_2}
 
     \section*{Classes/Functions Not Implemented}
+    \addcontentsline{toc}{section}{Classes/Functions Not Implemented}
         \input{questions/question_3}
 
     \section*{References}
+    \addcontentsline{toc}{section}{References}
         \input{questions/question_4}
 
+    \clearpage
     \section*{Appendix}
         \input{questions/question_5}
 \end{document}
