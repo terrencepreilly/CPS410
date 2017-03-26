@@ -1,5 +1,3 @@
-import pygame
-
 # This module contains scenes that can be updates interchangeably
 # within the main loop of the game.
 import pygame
@@ -9,16 +7,55 @@ import settings
 class Game(object):
     """ The scene containing gameplay. """
 
-    def __init__(self):
-        enemies = []
-        beams = []
-        player = None
-        background = None
+    def __init__(self, screen):
+        self.enemies = []
+        self.beams = []
+        self.player = None
+        self.background = None
+        self.running = True
+        self.screen = screen
+        self.clock = pygame.time.Clock()
 
-    def update(self):
-        """ Updates the scene and returns true if game is finished
-            its execution. """
-        return False
+    def handle_action(self, key):
+        if key == pygame.K_a:
+            print('a pressed')
+        elif key == pygame.K_s:
+            print('s pressed')
+        elif key == pygame.K_d:
+            print('d pressed')
+        elif key == pygame.K_w:
+            print('w pressed')
+        elif key == pygame.K_SPACE:
+            print('space pressed')
+        elif key == pygame.K_e:
+            print('e pressed')
+        elif key == pygame.K_q:
+            print('q pressed')
+        elif key == pygame.K_ESCAPE:
+            self.running = False
+
+    def run(self):
+        self.running = True
+        while self.running:
+            # Limit frame speed to 60 FPS
+            self.clock.tick(settings.FPS)
+
+            # Handle key presses
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    mainloop = False
+                if event.type == pygame.KEYDOWN:
+                    self.handle_action(event.key)
+
+            # Render items
+            self.screen.fill(settings.BG_COLOR)
+
+            for enemy in self.enemies:
+                self.screen.blit(*enemy.render())
+            if self.player is not None:  # TODO Remove check once player loaded
+                self.screen.blit(*self.player.render())
+
+            pygame.display.flip()
 
 
 class MenuActions:
@@ -56,7 +93,7 @@ class _MenuItems(object):
             if index == self.current:
                 curr = '>    {}'.format(item)
             else:
-                curr = '     {}'.format(item)
+                curr = '      {}'.format(item)
 
             label = self.font.render(curr, 1, settings.FONT_COLOR)
 
@@ -84,6 +121,7 @@ class Menu(object):
         self.clock = pygame.time.Clock()
         self.menu_items = _MenuItems()
         self.running = True
+        self.game = Game(screen)
 
     def item_select(self, key):
         if key == pygame.K_UP:
@@ -92,7 +130,7 @@ class Menu(object):
             self.menu_items.next()
         elif key == pygame.K_SPACE:
             if self.menu_items.current == MenuActions.GAME:
-                pass
+                self.game.run()
             elif self.menu_items.current == MenuActions.HIGH_SCORES:
                 pass
             if self.menu_items.current == MenuActions.EXIT:
@@ -106,7 +144,7 @@ class Menu(object):
         """
         while self.running:
             # Limit frame speed to 60 FPS
-            self.clock.tick(60)
+            self.clock.tick(settings.FPS)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
