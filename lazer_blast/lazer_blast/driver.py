@@ -12,9 +12,10 @@ def main():
     resolution = (800, 600)
     windowSurface = pygame.display.set_mode(resolution, 0, 32)
     pygame.display.set_caption('Lazer Blast!')
-    menu = Menu()
+    menu = Menu(windowSurface)
     game = Game()
     active_scene = menu
+    active_scene.run()
     
     while True:
         commands = []
