@@ -1,7 +1,7 @@
-  #GameSound class will implement the sound aspects of the game which will 
-  #provide the lasers with sound every time they are activated, will play a 
-  #crashing sound when a specific colored laser hits the matching colored 
-  #target, will provide a sound specific to the player losing the game as 
+  #GameSound class will implement the sound aspects of the game which will
+  #provide the lasers with sound every time they are activated, will play a
+  #crashing sound when a specific colored laser hits the matching colored
+  #target, will provide a sound specific to the player losing the game as
   #well as the winning sound once the game has been won.
 
 class GameSound():
@@ -9,7 +9,7 @@ class GameSound():
 
     # cdm set to loss for testing purposes
     cmd = "loss"
-    
+
     #we could just get rid of the class and just use this section replacing fire, hit, etc.
     #with key pressed for firing a laser or when a hit/win/loss takes place
 
@@ -19,7 +19,7 @@ class GameSound():
         pygame.mixer.init()
         pygame.mixer.music.load(sound_path)
         pygame.mixer.music.play()
-        
+
     #-- Reference for wav files --
     #Downloaded from freesound.org
 
