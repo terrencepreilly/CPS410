@@ -2,6 +2,44 @@
 %
 \addcontentsline{toc}{section}{Appendix}
 \subsection*{A. Tested, and documented (internal comments) program listings}
+    \addcontentsline{toc}{subsection}{Tested and Documented Program Listings}
+
+    \subsubsection*{base\_classes.py}
+        Base classes listed below implement the functionality common to
+        actionable objects and rendered objects.  Most of our unit tests
+        are concerned with these.
+        \inputminted{python}{../assets/base_classes.py}
+
+    \subsubsection*{driver.py}
+        The driver file is a convenience for starting the program.  It
+        runs the main menu.
+        \inputminted{python}{../assets/driver.py}
+
+    \subsubsection*{scenes.py}
+        The scenes file contains the main menu and the game itself, our
+        two main scenes.
+        \inputminted{python}{../assets/scenes.py}
+
+    \subsubsection*{settings.py}
+        The settings file contains global settings we might like to change
+        easily (or that users would like to change.)
+        \inputminted{python}{../assets/settings.py}
+
+    \subsubsection*{ships.py}
+        The ships file contains the player and enemies.
+        \inputminted{python}{../assets/ships.py}
+
+    \subsubsection*{test\_abstracts.py}
+        The \textit{test\_abstracts} file tests the assumptions underlying
+        the base classes.  In particular, it ensures that the magic methods
+        function.
+        \inputminted{python}{../assets/test_abstracts.py}
+
+    \subsubsection*{test\_ships.py}
+        The \textit{test\_ships} file tests the player ship currently, and
+        has some stubbed tests for enemies.  It currently tests player
+        movement through the \textit{momentum} abstraction.
+        \inputminted{python}{../assets/test_ships.py}
 
 % Add the gantt chart here.
-\includepdf[pages=1,angle=90,scale=0.8,pagecommand=\subsection*{B. Gantt Chart for Phase 4}]{../assets/LazerBlast_Phase4.pdf}
+\includepdf[pages=1,angle=90,scale=0.8,pagecommand=\subsection*{B. Gantt Chart for Phase 4}\addcontentsline{toc}{subsection}{Gantt Chart for Phase 4}]{../assets/LazerBlast_Phase4.pdf}
