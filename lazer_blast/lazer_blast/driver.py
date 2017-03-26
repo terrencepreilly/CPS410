@@ -4,30 +4,16 @@
 
 import pygame
 import sys
-from scenes import Menu, Game
+from scenes import Menu, MenuActions
 from pygame.locals import QUIT
+import settings
 
-def main():
+
+if __name__ == '__main__':
     pygame.init()
-    resolution = (800, 600)
-    windowSurface = pygame.display.set_mode(resolution, 0, 32)
+    windowSurface = pygame.display.set_mode(
+        settings.SCREEN_DIMENSIONS, 0, 32
+        )
     pygame.display.set_caption('Lazer Blast!')
     menu = Menu(windowSurface)
-    game = Game()
-    active_scene = menu
-    active_scene.run()
-    
-    while True:
-        commands = []
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                pygame.quit()
-                sys.exit()
-            finished = active_scene.update()
-            if finished == True:
-              if active_scene == game:
-                active_scene = menu
-              elif active_scene == menu:
-                active_scene = game
-
-main()
+    menu.run()
