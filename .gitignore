@@ -103,3 +103,4 @@ ENV/
 *.blg
 *.out
 *_minted*
+*.toc
