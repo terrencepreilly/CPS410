@@ -1,0 +1,28 @@
+The LazerStrike() function is one which activates the image of a particular colored laser striking as the correct keys are pressed. 
+The way this function works is the player hits a certain key and based on the key they hit, the laser will display in either red, green, 
+blue, or yellow depending on the key hit. These colors are ones which will be used for our enemy ships as well, which is why the key 
+selection is important because if the player selects the wrong key then the colors will mismatch between the laser and the enemy ship and 
+therefore the players attempted hit will miss. Another color which has been added to this function is white, this color is called anytime 
+a key within an assigned event is clicked which will automatically be calculated as a miss for the player. When testing this function, 
+there were several errors which we had run into with the first being that the laser line did not want to show up on the screen at all 
+because we had not used the pygame.KEYDOWN module which is used to listen for when the player has a key pressed down. Once this was 
+entered into our function prior to key events being assigned, then we realized that we had to adjust the position of the laser as it was 
+going all the way from the top of our screen to the bottom. To fix this we simply played around with the start and end positions entered 
+into the drawing module which gave us a better overall position of our lasers display. The positioning of our laser drawing is likely 
+something else which will need adjusted again later as we get our final positions of the players ship and the enemies’ ships as we want 
+our laser to look as if it is coming from our ship to the enemy ships. One way which we could do this is by assigning the players ships 
+position to the start_pos variable and the targeted enemy ships position to the end_pos variable which we can pass to our laser drawing 
+module. 
+
+During our testing of this function we had also realized that we were calling the wrong module when checking for which key was being held 
+down as we were using the event.type module instead of the event.key module to assign keys being listened for. Once we had assigned the 
+correct module to each key listening event statement, then our keys correctly called the color which we had linked them to. Our next 
+problem was that the laser did not disappear after being called, it stayed on the screen and simply changed color. The ideal fix for this 
+would be to completely remove our laser image, which we’re hoping to implement prior to our final release of the game. Unfortunately, we 
+have yet to accomplish this fix but we were able to apply a fix where the laser would only show up as a visual to the player when they 
+were holding down the assigned key. The way in which we were able to fix this was by implementing the pygame.KEYUP module which listens 
+for when no keys are being used. At this point the laser color is assigned to match background color of our game. We can then make it so 
+that this color has no effect, should this be our ultimate fix. Assigning the color of the laser to the same color of the background 
+while no keys are being pressed, indicates to the player that the laser is not active. If there are multiple colors being used almost 
+back to back, there would still be that flash in-between keystrokes of a laser not being activated which will provide the player with the 
+sense of the lasers being changed from one to the next instead of showing a constant active laser which only changes in color. 
