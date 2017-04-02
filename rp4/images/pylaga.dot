@@ -1,0 +1,65 @@
+digraph G {
+    node [shape="rectangle"];
+
+    subgraph Bullet_py {
+        Bullet;
+        EnemyBullet;
+    }
+
+    subgraph Backgrount_py {
+        BackgroundManager;
+        star;
+    }
+
+    subgraph enemy_py {
+        EnemyManager;
+        Enemy;
+    }
+
+    subgraph display_py {
+        Points;
+        Health;
+        HealthBar;
+    }
+
+    subgraph menu_py {
+        Menu;
+    }
+
+    subgraph menulists_py {
+        MenuList;
+    }
+
+    subgraph pylaga_py {
+        pylaga;
+    }
+
+    subgraph player_py {
+        Player;
+    }
+
+    // Association
+    edge [dir="both", arrowhead="none", arrowtail="none"];
+    Enemy -> EnemyManager;
+    Enemy -> EnemyBullet;
+    Player -> Bullet;
+    Enemy -> Health;
+    Player -> Health;
+    Enemy -> HealthBar;
+    Player -> HealthBar;
+    Player -> Points;
+
+    pylaga -> Menu;
+    pylaga -> star;
+    pylaga -> Player;
+    pylaga -> Enemy;
+
+    // Composition
+    edge [dir="both", arrowtail="odiamond", arrowhead="none"];
+    Menu -> MenuList;
+    pylaga -> BackgroundManager;
+
+    // Inheritance
+    edge [dir="both", arrowtail="onormal", arrowhead="none"];
+    Bullet -> EnemyBullet;
+}
