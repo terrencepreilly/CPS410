@@ -52,7 +52,11 @@ After some research and modification of the code, we quickly
 realized that the issue causing this was that we had forgotten to
 call \mintinline{python}{pygame.mixer.init()}, which initializes the
 Pygame sound and allows us to use the built in modules in order to
-play sound files being loaded in. After adding this call, we had
+play sound files being loaded in:
+
+\inputminted[baselinestretch=1]{python}{../code/game_sound_init_call.py}
+
+After adding this call, we had
 once again attempted to run this class, using the pre-assigned
 string to activate a certain sound file. While the sound affects did
 come back this time and were correct, there was still an issue with
@@ -94,7 +98,11 @@ player.  When testing this function, there were several errors which
 we had run into with the first being that the laser line did not
 want to show up on the screen at all because we had not used the
 \mintinline{python}{pygame.KEYDOWN} module which is used to listen
-for when the player has a key pressed down. Once this was entered
+for when the player has a key pressed down:
+
+\inputminted[baselinestretch=1]{python}{../code/lazer_strike_keydown.py}
+
+Once this was entered
 into our function prior to key events being assigned, then we
 realized that we had to adjust the position of the laser as it was
 going all the way from the top of our screen to the bottom. To fix
