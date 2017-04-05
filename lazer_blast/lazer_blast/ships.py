@@ -1,7 +1,7 @@
 import pygame
 
-from lazer_blast import settings
 from lazer_blast.base_classes import RenderedBase, ActorBase
+from lazer_blast import settings
 
 
 class Player(ActorBase, RenderedBase):
@@ -10,7 +10,7 @@ class Player(ActorBase, RenderedBase):
     # TODO: Brad's images go here
     images = {
         'box': [None, None],
-        }
+    }
 
     def __init__(self, controls=dict(), health=0, weapons=list()):
         self.health = health
@@ -26,7 +26,7 @@ class Player(ActorBase, RenderedBase):
 
     def _update_position(self):
         """Update the Player's position."""
-        self.box = self.box.move(*(settings.SPEED * x for x in self.momentum))
+        self.move(*(x * settings.SPEED for x in self.momentum))
 
     def __next__(self):
         """Update the position, and return the next image in the

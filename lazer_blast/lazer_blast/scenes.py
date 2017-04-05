@@ -12,37 +12,38 @@ class Game(object):
         self.enemies = []
         self.beams = []
         self.player = Player()
+        self.player.surface = pygame.Surface(settings.SCREEN_DIMENSIONS)
         self.background = None
         self.running = True
         self.screen = screen
         self.clock = pygame.time.Clock()
 
     def handle_keydown(self, key):
-        if key == pygame.K_a:
+        if key == settings.LEFT:
             self.player.momentum = (-1, self.player.momentum[1])
-        elif key == pygame.K_s:
+        elif key == settings.DOWN:
             self.player.momentum = (self.player.momentum[0], 1)
-        elif key == pygame.K_d:
+        elif key == settings.RIGHT:
             self.player.momentum = (1, self.player.momentum[1])
-        elif key == pygame.K_w:
+        elif key == settings.UP:
             self.player.momentum = (self.player.momentum[0], -1)
-        elif key == pygame.K_SPACE:
+        elif key == settings.FIRE:
             print('space pressed')
-        elif key == pygame.K_e:
+        elif key == settings.SWAP_RIGHT:
             print('e pressed')
-        elif key == pygame.K_q:
+        elif key == settings.SWAP_LEFT:
             print('q pressed')
-        elif key == pygame.K_ESCAPE:
+        elif key == settings.ESCAPE:
             self.running = False
 
     def handle_keyup(self, key):
-        if key == pygame.K_a:
+        if key == settings.LEFT:
             self.player.momentum = (0, self.player.momentum[1])
-        elif key == pygame.K_s:
+        elif key == settings.DOWN:
             self.player.momentum = (self.player.momentum[0], 0)
-        elif key == pygame.K_d:
+        elif key == settings.RIGHT:
             self.player.momentum = (0, self.player.momentum[1])
-        elif key == pygame.K_w:
+        elif key == settings.UP:
             self.player.momentum = (self.player.momentum[0], 0)
 
     def run(self):
@@ -90,7 +91,7 @@ class _MenuItems(object):
         self.font = pygame.font.SysFont(
             settings.FONT,
             settings.FONT_SIZE,
-            )
+        )
 
     def next(self):
         self.current += 1
@@ -122,7 +123,7 @@ class _MenuItems(object):
                 (settings.SCREEN_HEIGHT / 2)
                 - (totalHeight / 2)
                 + (index * height)
-                )
+            )
 
             ret.append([label, (posx, posy)])
         return ret

@@ -6,19 +6,20 @@ import pygame
 from lazer_blast.base_classes import (
     ActorBase,
     RenderedBase,
-    )
+)
 
 
 class RenderedBaseTestCase(unittest.TestCase):
     # A fake subclass
+
     class Pantomime(RenderedBase):
         images = {
             'walk': ['fake_walk_{}'.format(x) for x in range(10)],
             'run': ['fake_run_{}'.format(x) for x in range(10)],
-            }
+        }
         sounds = {
             'bump': 'fake_bump'
-            }
+        }
 
     def test_has_images(self):
         rb = RenderedBase()
@@ -63,7 +64,39 @@ class RenderedBaseTestCase(unittest.TestCase):
         self.assertEqual(
             positional[2],
             rb.box,
-            )
+        )
+
+    def test_in_bounds(self):
+        rb = RenderedBase()
+        rb.box = pygame.Rect((0, 0, 100, 100))
+        rb.surface = pygame.Surface((500, 500))
+        self.assertTrue(rb.in_bounds())
+        rb.box = pygame.Rect((-100, -100, -50, -50))
+        self.assertFalse(rb.in_bounds())
+        rb.box = pygame.Rect((-100, 100, -50, 50))
+        self.assertFalse(rb.in_bounds())
+        rb.box = pygame.Rect((500, 500, 600, 600))
+        self.assertFalse(rb.in_bounds())
+
+    def test_cannot_move_player_out_of_bounds(self):
+        rb = RenderedBase()
+        rb.surface = pygame.Surface((500, 500))
+        rb.box = pygame.Rect((0, 0, 100, 100))
+        self.assertEqual(rb.box, pygame.Rect((0, 0, 100, 100)))
+        rb.move(10, 10)
+        self.assertEqual(
+            rb.box, pygame.Rect((10, 10, 100, 100)),
+            'This should be legal!'
+        )
+        rb.move(-20, -10)
+        self.assertNotEqual(
+            rb.box, pygame.Rect((-10, 0, 100, 100)),
+            'This should have been illegal, and readjusts',
+        )
+        self.assertEqual(
+            rb.box, pygame.Rect((0, 0, 100, 100)),
+            'It should readjust to be in position'
+        )
 
 
 class ActorBaseTestCase(unittest.TestCase):

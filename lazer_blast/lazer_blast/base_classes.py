@@ -21,13 +21,14 @@ class RenderedBase(object):
 
     # The bounding box for this figure
     box = pygame.Rect(0, 0, 0, 0)
+    surface = pygame.Surface((0, 0))
 
     def set_action(self, action):
         """Set the current action for this renderable object."""
         if action not in self.images:
             raise Exception('Action not defined for {}'.format(
                 self.__name__
-                ))
+            ))
         self._action_i = 0
         self._action = action
 
@@ -53,6 +54,27 @@ class RenderedBase(object):
         """This should probably be updated once we have images."""
         pygame.draw.rect(context, (255, 0, 0), self.box)
 
+    def move(self, x, y):
+        self.box = self.box.move(x, y)
+        if not self.in_bounds():
+            height = self.surface.get_bounding_rect().height
+            width = self.surface.get_bounding_rect().width
+            diffx = 0
+            if self.box.left < 0:
+                diffx = - self.box.left
+            elif self.box.right > width:
+                diffx = width - self.box.right
+            diffy = 0
+            if self.box.top < 0:
+                diffy = - self.box.top
+            elif self.box.bottom > height:
+                diffy = height - self.box.bottom
+            self.box = self.box.move(diffx, diffy)
+
+    def in_bounds(self):
+        """Return True if this actor is within the bounds of the surface"""
+        return self.surface.get_bounding_rect().contains(self.box)
+
 
 class ActorBase(object):
     """Implements basic attributes of an actor."""
@@ -61,6 +83,8 @@ class ActorBase(object):
         self.health = health
         self.weapons = weapons
         self._weapon_i = -1 if len(self.weapons) == 0 else 0
+        # Also holds bounds information
+        self._position = pygame.Rect((0, 0, 100, 100))
 
     def add_weapon(self, weapon):
         """Adds a weapon to this actor's arsenal."""
