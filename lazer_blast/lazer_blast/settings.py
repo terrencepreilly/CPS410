@@ -4,6 +4,11 @@ FPS = 60
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 SCREEN_DIMENSIONS = (SCREEN_WIDTH, SCREEN_HEIGHT)
+COLORS = [
+    pygame.color.THECOLORS[x]
+    for x in ['turquoise', 'yellow', 'seagreen1', 'royalblue3',
+              'red4', 'peachpuff']
+]
 
 # Menu Settings
 BG_COLOR = (0, 0, 0)
@@ -13,7 +18,14 @@ FONT_COLOR = (255, 255, 255)
 ITEMS = ('Start Game', 'High Scores', 'Quit')
 
 # Player Settings
-SPEED = 5
+SPEED = 7
+PLAYER_HEALTH = 100
+
+# Enemy Settings
+ENEMY_SPEED = 2
+SPAWN_RATE = 0.01
+TURN_BOUND = 0.01
+ENEMY_STRENGTH = 1
 
 # Control Settings
 LEFT = pygame.K_a
@@ -25,7 +37,7 @@ SWAP_RIGHT = pygame.K_e
 SWAP_LEFT = pygame.K_q
 ESCAPE = pygame.K_ESCAPE
 
-_dvorak = False
+_dvorak = True  # False
 if _dvorak:
     LEFT = pygame.K_a
     DOWN = pygame.K_o

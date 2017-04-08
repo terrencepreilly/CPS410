@@ -1,22 +1,39 @@
 # This module contains scenes that can be updates interchangeably
 # within the main loop of the game.
 import pygame
+from random import Random
+
 from lazer_blast import settings
-from lazer_blast.ships import Player
+from lazer_blast.ships import (
+    Enemy,
+    Player,
+)
 
 
 class Game(object):
     """ The scene containing gameplay. """
 
     def __init__(self, screen):
-        self.enemies = []
+        self.surface = pygame.Surface(settings.SCREEN_DIMENSIONS)
         self.beams = []
+        self.enemies = list()
         self.player = Player()
-        self.player.surface = pygame.Surface(settings.SCREEN_DIMENSIONS)
+        self.player.surface = self.surface
         self.background = None
         self.running = True
         self.screen = screen
         self.clock = pygame.time.Clock()
+        self.rand = Random()
+
+    def generate_enemies(self):
+        if self.rand.random() < settings.SPAWN_RATE:
+            x = self.rand.randint(0, settings.SCREEN_DIMENSIONS[0])
+            color = self.rand.choice(settings.COLORS)
+            enemy = Enemy(starting_pos=(x, 0), color=color)
+            enemy.surface = self.surface
+            self.enemies.append(
+                enemy
+            )
 
     def handle_keydown(self, key):
         if key == settings.LEFT:
@@ -30,9 +47,9 @@ class Game(object):
         elif key == settings.FIRE:
             print('space pressed')
         elif key == settings.SWAP_RIGHT:
-            print('e pressed')
+            self.player.next_color()
         elif key == settings.SWAP_LEFT:
-            print('q pressed')
+            self.player.prev_color()
         elif key == settings.ESCAPE:
             self.running = False
 
@@ -46,6 +63,7 @@ class Game(object):
         elif key == settings.UP:
             self.player.momentum = (self.player.momentum[0], 0)
 
+    # TODO: Refactor this into some functions.
     def run(self):
         self.running = True
         settings.ITEMS = ('Resume', settings.ITEMS[1], settings.ITEMS[2])
@@ -70,9 +88,20 @@ class Game(object):
             self.player.render(self.screen)
 
             # Once there are images, this is what should be rendered
+            for enemy in self.enemies:
+                next(enemy)
             next(self.player)
 
+            if self.player.enemies_touching(self.enemies):
+                self.player.health -= settings.ENEMY_STRENGTH
+                if self.player.health <= 0:
+                    self.running = False
+
+            self.enemies = [x for x in self.enemies if x.in_bounds()]
+            self.generate_enemies()
+
             pygame.display.flip()
+        print('Game over!')
 
 
 class MenuActions:

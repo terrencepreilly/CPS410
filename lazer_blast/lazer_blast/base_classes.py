@@ -22,6 +22,7 @@ class RenderedBase(object):
     # The bounding box for this figure
     box = pygame.Rect(0, 0, 0, 0)
     surface = pygame.Surface((0, 0))
+    color = (255, 0, 0, 0)
 
     def set_action(self, action):
         """Set the current action for this renderable object."""
@@ -52,28 +53,14 @@ class RenderedBase(object):
 
     def render(self, context):
         """This should probably be updated once we have images."""
-        pygame.draw.rect(context, (255, 0, 0), self.box)
+        pygame.draw.rect(context, self.color, self.box)
 
     def move(self, x, y):
         self.box = self.box.move(x, y)
-        if not self.in_bounds():
-            height = self.surface.get_bounding_rect().height
-            width = self.surface.get_bounding_rect().width
-            diffx = 0
-            if self.box.left < 0:
-                diffx = - self.box.left
-            elif self.box.right > width:
-                diffx = width - self.box.right
-            diffy = 0
-            if self.box.top < 0:
-                diffy = - self.box.top
-            elif self.box.bottom > height:
-                diffy = height - self.box.bottom
-            self.box = self.box.move(diffx, diffy)
 
     def in_bounds(self):
         """Return True if this actor is within the bounds of the surface"""
-        return self.surface.get_bounding_rect().contains(self.box)
+        return self.surface.get_bounding_rect().contains(self.box) == 1
 
 
 class ActorBase(object):

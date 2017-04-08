@@ -4,7 +4,9 @@ from test_abstracts import (  # noqa: F401
     ActorBaseTestCase,
     )
 from test_ships import (  # noqa: F401
-    PlayerTestCase
+    EnemyTestCase,
+    PlayerTestCase,
+    PlayerEnemyInteractionTestCase,
     )
 
 if __name__ == '__main__':

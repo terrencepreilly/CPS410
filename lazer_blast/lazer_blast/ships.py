@@ -1,3 +1,4 @@
+from random import Random
 import pygame
 
 from lazer_blast.base_classes import RenderedBase, ActorBase
@@ -12,17 +13,41 @@ class Player(ActorBase, RenderedBase):
         'box': [None, None],
     }
 
-    def __init__(self, controls=dict(), health=0, weapons=list()):
+    def __init__(self, controls=dict(),
+                 health=settings.PLAYER_HEALTH, weapons=list()):
         self.health = health
         self.weapons = weapons
         self._weapon_i = -1 if len(self.weapons) == 0 else 0
         self.controls = controls
-        self.position = (0, 0)
-        self.box = pygame.Rect(0, 0, 50, 50)
+        self.box = pygame.Rect(
+            (settings.SCREEN_WIDTH / 2) - 25,
+            settings.SCREEN_HEIGHT - 50,
+            50,
+            50
+        )
         self.set_action('box')
+        self.color_i = 0
+        self.color = settings.COLORS[self.color_i]
 
         # Describes how fast the player is moving in a given direction.
         self.momentum = (0, 0)
+
+    def move(self, x, y):
+        super(Player, self).move(x, y)
+        if not self.in_bounds():
+            height = self.surface.get_bounding_rect().height
+            width = self.surface.get_bounding_rect().width
+            diffx = 0
+            if self.box.left < 0:
+                diffx = - self.box.left
+            elif self.box.right > width:
+                diffx = width - self.box.right
+            diffy = 0
+            if self.box.top < 0:
+                diffy = - self.box.top
+            elif self.box.bottom > height:
+                diffy = height - self.box.bottom
+            self.box = self.box.move(diffx, diffy)
 
     def _update_position(self):
         """Update the Player's position."""
@@ -34,12 +59,69 @@ class Player(ActorBase, RenderedBase):
         self._update_position()
         return super(Player, self).__next__()
 
+    def next_color(self):
+        """Switch to the next color laser."""
+        self.color_i += 1
+        if self.color_i >= len(settings.COLORS):
+            self.color_i = 0
+        self.color = settings.COLORS[self.color_i]
+
+    def prev_color(self):
+        """Switch to the previous color laser."""
+        self.color_i -= 1
+        if self.color_i < 0:
+            self.color_i = len(settings.COLORS) - 1
+        self.color = settings.COLORS[self.color_i]
+
+    def enemies_touching(self, enemies):
+        """Return True if any of the given enemies is touching this player."""
+        # We don't use collidelist() because we would have to gather
+        # all of the rects first.  This way we short-circuit.
+        for enemy in enemies:
+            if self.box.colliderect(enemy.box):
+                return True
+        return False
+
 
 class Enemy(ActorBase, RenderedBase):
     """ Enemy ship that combats player. """
 
-    def __init__(self, health=0, weapons=list()):
-        ActorBase.__init__(health=health, weapons=weapons)
+    images = {
+        'none': [None, None]
+    }
+
+    def __init__(self, health=0, color=(255, 0, 0, 255), starting_pos=(0, 0)):
+        self.health = health
+        self.weapons = list()
+        self.color = color
+        self.box = pygame.Rect(starting_pos[0], starting_pos[1], 50, 50)
+        self.set_action('none')
+        self.momentum = (0, 1)
+        self.rand = Random()
+
+    def _update_position(self):
+        """Update the Player's position."""
+        dx = self.momentum[0]
+        r = self.rand.random()
+        if 0 <= r <= settings.TURN_BOUND:
+            dx = -1
+        elif 0.5 - settings.TURN_BOUND <= r <= 0.5 + settings.TURN_BOUND:
+            dx = 0
+        elif 1 - settings.TURN_BOUND <= r <= 1:
+            dx = 1
+        self.momentum = (dx, 1)
+        self.move(*(x * settings.ENEMY_SPEED for x in self.momentum))
+
+    def __next__(self):
+        """Update the position, and return the next image in the
+        sequence for this action."""
+        self._update_position()
+        return super(Enemy, self).__next__()
+
+    def in_bounds(self):
+        """Return True if this actor is within the bounds of the surface"""
+        return self.surface.get_bounding_rect().collidepoint(
+            self.box.topleft) == 1
 
 
 class LaserBlaster(object):
