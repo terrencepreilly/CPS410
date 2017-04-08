@@ -3,6 +3,22 @@
 [Galaga](https://en.wikipedia.org/wiki/Galaga)), which includes
 aspects of color matching and pattern matching.
 
+## Running
+To install and run the game, clone this repository and `cd` into
+it in a terminal.  Then, run:
+
+```
+python3 setup.py install
+```
+
+You can then enter the command,
+
+```
+lazerblast
+```
+
+And the game will start.
+
 ## Game-play
 The user pilots a small ship against hoards of enemies.  Each enemy
 has a given color.  The player must use a similar-colored laser to
@@ -17,7 +33,7 @@ of colorful enemies immediately, the difficulty of the game increases
 as the player progresses, starting with a single color and slowly
 adding other colors and increasing the speed.
 
-## Instructions
+## Development
 
 1. Clone the repository.
 
@@ -25,15 +41,24 @@ adding other colors and increasing the speed.
 2. Install the requirements and game:
     ```
     pip install -r requirements.txt
-    python setup.py install
+    python3 setup.py develop
     ```
   *NB.* In the future, the requirements should be handled by the
   setup file.
 
 3. Run the game:
     ```
-    python driver.py
+    lazerblast
     ```
 
 *NB.* Using a `virtualenv` would be preferable, but it does not
 work (at least, not on a mac.)  See [this](https://bitbucket.org/pygame/pygame/issues/203/window-does-not-get-focus-on-os-x-with)
+
+
+## Running Tests
+
+Tests are run with the `pytest` runner through the setup utility:
+
+```
+python3 setup.py test
+```

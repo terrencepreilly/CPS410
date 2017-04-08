@@ -9,4 +9,11 @@ setup(
     description='A 2D game for our CPS410 class',
     long_description=readme,
     packages=find_packages(exclude=('tests', 'docs')),
-    )
+    entry_points={
+        'console_scripts': [
+            'lazerblast = lazer_blast.driver:main',
+        ],
+    },
+    setup_requires=['pytest-runner'],
+    tests_require=['pytest']
+)
