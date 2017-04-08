@@ -70,38 +70,39 @@ class Game(object):
         while self.running:
             # Limit frame speed to 60 FPS
             self.clock.tick(settings.FPS)
-
-            # Handle key presses
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
-                if event.type == pygame.KEYDOWN:
-                    self.handle_keydown(event.key)
-                if event.type == pygame.KEYUP:
-                    self.handle_keyup(event.key)
-
-            # Render items
-            self.screen.fill(settings.BG_COLOR)
-
-            for enemy in self.enemies:
-                enemy.render(self.screen)
-            self.player.render(self.screen)
-
-            # Once there are images, this is what should be rendered
-            for enemy in self.enemies:
-                next(enemy)
-            next(self.player)
-
-            if self.player.enemies_touching(self.enemies):
-                self.player.health -= settings.ENEMY_STRENGTH
-                if self.player.health <= 0:
-                    self.running = False
-
+            self.handle_key_events()
+            self.render_items()
+            self.handle_collisions()
             self.enemies = [x for x in self.enemies if x.in_bounds()]
             self.generate_enemies()
-
-            pygame.display.flip()
         print('Game over!')
+
+    def handle_key_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = False
+            if event.type == pygame.KEYDOWN:
+                self.handle_keydown(event.key)
+            if event.type == pygame.KEYUP:
+                self.handle_keyup(event.key)
+
+    def render_items(self):
+        self.screen.fill(settings.BG_COLOR)
+        for enemy in self.enemies:
+            enemy.render(self.screen)
+        self.player.render(self.screen)
+
+        # Once there are images, this is what should be rendered
+        for enemy in self.enemies:
+            next(enemy)
+        next(self.player)
+        pygame.display.flip()
+
+    def handle_collisions(self):
+        if self.player.enemies_touching(self.enemies):
+            self.player.health -= settings.ENEMY_STRENGTH
+            if self.player.health <= 0:
+                self.running = False
 
 
 class MenuActions:
@@ -188,7 +189,6 @@ class Menu(object):
 
     def run(self):
         """Run the menu.
-
         If the game is exited, the menu will continue running.
         If the menu is exited, then the game ends.
         """
