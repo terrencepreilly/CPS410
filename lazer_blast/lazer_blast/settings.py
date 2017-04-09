@@ -6,8 +6,7 @@ SCREEN_HEIGHT = 600
 SCREEN_DIMENSIONS = (SCREEN_WIDTH, SCREEN_HEIGHT)
 COLORS = [
     pygame.color.THECOLORS[x]
-    for x in ['turquoise', 'yellow', 'seagreen1', 'royalblue3',
-              'red4', 'peachpuff']
+    for x in ['red', 'green', 'blue']
 ]
 
 # Menu Settings
@@ -36,8 +35,8 @@ DOWN = pygame.K_s
 RIGHT = pygame.K_d
 UP = pygame.K_w
 FIRE = pygame.K_SPACE
-SWAP_RIGHT = pygame.K_e
-SWAP_LEFT = pygame.K_q
+SWAP_RIGHT = pygame.K_RIGHT
+SWAP_LEFT = pygame.K_LEFT
 ESCAPE = pygame.K_ESCAPE
 
 _dvorak = False
