@@ -20,9 +20,11 @@ ITEMS = ('Start Game', 'High Scores', 'Quit')
 # Player Settings
 SPEED = 7
 PLAYER_HEALTH = 100
+PLAYER_STRENGTH = 1
 
 # Enemy Settings
 ENEMY_SPEED = 2
+ENEMY_HEALTH = 5
 SPAWN_RATE = 0.01
 TURN_BOUND = 0.01
 ENEMY_STRENGTH = 1
@@ -37,7 +39,7 @@ SWAP_RIGHT = pygame.K_e
 SWAP_LEFT = pygame.K_q
 ESCAPE = pygame.K_ESCAPE
 
-_dvorak = False
+_dvorak = True
 if _dvorak:
     LEFT = pygame.K_a
     DOWN = pygame.K_o

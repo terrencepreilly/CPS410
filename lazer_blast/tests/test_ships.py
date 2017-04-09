@@ -80,6 +80,22 @@ class PlayerTestCase(unittest.TestCase):
             settings.COLORS[0],
         )
 
+    @mock.patch('lazer_blast.base_classes.pygame.draw.rect')
+    def test_when_lazer_on_rect_and_circle_drawn(self, mock_draw):
+        player = Player()
+        player.box = pygame.Rect(0, 0, 10, 10)
+        player.surface = pygame.Surface((500, 500))
+        player.render(player.surface)
+        self.assertEqual(mock_draw.call_count, 1)
+        player.flip_laser()
+        player.render(player.surface)
+        self.assertEqual(
+            mock_draw.call_count,
+            3,
+            'It should have called once for the player, '
+            'And one more time for the laser shape. '
+        )
+
 
 class EnemyTestCase(unittest.TestCase):
 
@@ -155,35 +171,88 @@ class EnemyTestCase(unittest.TestCase):
             'If the random number is within bounds of 0.5, goes straight',
         )
 
+    def test_enemy_takes_damage_when_hit(self):
+        surface = pygame.Surface((100, 100))
+        enemy = Enemy()
+        enemy.surface = surface
+        enemy._is_hit = lambda: True
+        next(enemy)
+        self.assertEqual(
+            settings.ENEMY_HEALTH - settings.PLAYER_STRENGTH,
+            enemy.health,
+        )
+
 
 class PlayerEnemyInteractionTestCase(unittest.TestCase):
 
-    def test_player_knows_if_enemies_are_touching(self):
+    def setUp(self):
+        color = (255, 0, 0)
         surface = pygame.Surface((100, 100))
-        player = Player()
-        player.surface = surface
-        player.box = pygame.Rect((45, 90, 10, 10))
+        self.player = Player()
+        self.player.surface = surface
+        self.player.box = pygame.Rect((45, 90, 10, 10))
+        self.player.color = color
 
         enemy1 = Enemy()
+        enemy1.color = color
         enemy1.surface = surface
         enemy1.box = pygame.Rect((45, 0, 10, 10))
+        enemy1.target = self.player
         enemy2 = Enemy()
+        enemy2.color = color
         enemy2.surface = surface
         enemy2.box = pygame.Rect((55, 0, 10, 10))
-        enemies = [enemy1, enemy2]
+        enemy2.target = self.player
+        self.enemies = [enemy1, enemy2]
 
+    def test_player_knows_if_enemies_are_touching(self):
+        enemy1, enemy2 = self.enemies
         self.assertFalse(
-            player.enemies_touching(enemies),
+            self.player.enemies_touching(self.enemies),
             'No enemies should be touching the player.'
         )
 
         enemy1.box = pygame.Rect((50, 90, 10, 10))
         self.assertTrue(
-            player.enemies_touching(enemies),
+            self.player.enemies_touching(self.enemies),
             'One enemy should be touching the player.',
         )
         enemy2.box = pygame.Rect((51, 90, 10, 10))
         self.assertTrue(
-            player.enemies_touching(enemies),
+            self.player.enemies_touching(self.enemies),
             'Two enemies should be touching the player.',
         )
+
+    def test_enemy_takes_damage_from_lazer_only(self):
+        self.player.flip_laser(True)
+        enemy1, enemy2 = self.enemies
+
+        enemy1.box.left = self.player.laser.left
+        enemy1.box.top = self.player.laser.top + 20
+
+        # half-way overlapping with player (below)
+        enemy2.box.left = self.player.box.left
+        enemy2.box.top = self.player.box.top + 5
+
+        self.assertEqual(enemy1.health, settings.ENEMY_HEALTH)
+        self.assertEqual(enemy2.health, settings.ENEMY_HEALTH)
+
+        next(enemy1)
+        next(enemy2)
+
+        self.assertEqual(
+            enemy1.health,
+            settings.ENEMY_HEALTH - settings.PLAYER_STRENGTH
+        )
+        self.assertEqual(enemy2.health, settings.ENEMY_HEALTH)
+
+    def test_enemy_doesnt_take_damage_from_inactive_laser(self):
+        self.player.flip_laser(False)
+        enemy = self.enemies[0]
+
+        enemy.box.left = self.player.laser.left
+        enemy.box.top = self.player.laser.top + 20
+
+        next(enemy)
+
+        self.assertEqual(enemy.health, settings.ENEMY_HEALTH)

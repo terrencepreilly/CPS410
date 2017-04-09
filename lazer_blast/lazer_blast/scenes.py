@@ -30,6 +30,7 @@ class Game(object):
             x = self.rand.randint(0, settings.SCREEN_DIMENSIONS[0])
             color = self.rand.choice(settings.COLORS)
             enemy = Enemy(starting_pos=(x, 0), color=color)
+            enemy.target = self.player
             enemy.surface = self.surface
             self.enemies.append(
                 enemy
@@ -45,7 +46,7 @@ class Game(object):
         elif key == settings.UP:
             self.player.momentum = (self.player.momentum[0], -1)
         elif key == settings.FIRE:
-            print('space pressed')
+            self.player.flip_laser(True)
         elif key == settings.SWAP_RIGHT:
             self.player.next_color()
         elif key == settings.SWAP_LEFT:
@@ -62,8 +63,9 @@ class Game(object):
             self.player.momentum = (0, self.player.momentum[1])
         elif key == settings.UP:
             self.player.momentum = (self.player.momentum[0], 0)
+        elif key == settings.FIRE:
+            self.player.flip_laser(False)
 
-    # TODO: Refactor this into some functions.
     def run(self):
         self.running = True
         settings.ITEMS = ('Resume', settings.ITEMS[1], settings.ITEMS[2])
@@ -73,7 +75,8 @@ class Game(object):
             self.handle_key_events()
             self.render_items()
             self.handle_collisions()
-            self.enemies = [x for x in self.enemies if x.in_bounds()]
+            self.enemies = [x for x in self.enemies
+                            if x.in_bounds() and x.health > 0]
             self.generate_enemies()
         print('Game over!')
 

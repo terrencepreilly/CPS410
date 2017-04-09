@@ -28,6 +28,13 @@ class Player(ActorBase, RenderedBase):
         self.set_action('box')
         self.color_i = 0
         self.color = settings.COLORS[self.color_i]
+        self._laser = False
+        self.laser = pygame.Rect((
+            self.box.left + (0.5 * self.box.width) - 3,
+            self.box.top - settings.SCREEN_HEIGHT,
+            3,
+            settings.SCREEN_HEIGHT,
+        ))
 
         # Describes how fast the player is moving in a given direction.
         self.momentum = (0, 0)
@@ -48,6 +55,8 @@ class Player(ActorBase, RenderedBase):
             elif self.box.bottom > height:
                 diffy = height - self.box.bottom
             self.box = self.box.move(diffx, diffy)
+        self.laser.left = self.box.left + (0.5 * self.box.width) - 3
+        self.laser.top = self.box.top - settings.SCREEN_HEIGHT
 
     def _update_position(self):
         """Update the Player's position."""
@@ -82,6 +91,25 @@ class Player(ActorBase, RenderedBase):
                 return True
         return False
 
+    def flip_laser(self, state=None):
+        """Changes the state of the laser (on/off).
+
+        Args:
+            state: An optional state argument (True or False).
+                If None, the laser will switch states.
+        """
+        if state is None:
+            self._laser = not self._laser
+        else:
+            # Make sure that _laser is a boolean value
+            self._laser = bool(state)
+
+    def render(self, context):
+        if self._laser:
+            # Render the laser
+            pygame.draw.rect(context, self.color, self.laser)
+        return super(Player, self).render(context)
+
 
 class Enemy(ActorBase, RenderedBase):
     """ Enemy ship that combats player. """
@@ -90,7 +118,8 @@ class Enemy(ActorBase, RenderedBase):
         'none': [None, None]
     }
 
-    def __init__(self, health=0, color=(255, 0, 0, 255), starting_pos=(0, 0)):
+    def __init__(self, health=settings.ENEMY_HEALTH,
+                 color=(255, 0, 0, 255), starting_pos=(0, 0)):
         self.health = health
         self.weapons = list()
         self.color = color
@@ -98,6 +127,8 @@ class Enemy(ActorBase, RenderedBase):
         self.set_action('none')
         self.momentum = (0, 1)
         self.rand = Random()
+        # Target (player) must be set or enemy will not take damage
+        self.target = None
 
     def _update_position(self):
         """Update the Player's position."""
@@ -112,10 +143,22 @@ class Enemy(ActorBase, RenderedBase):
         self.momentum = (dx, 1)
         self.move(*(x * settings.ENEMY_SPEED for x in self.momentum))
 
+    def _is_hit(self):
+        if self.target is None:
+            return False
+        return (self.target._laser
+                and bool(self.target.laser.colliderect(self.box))
+                and self.color == self.target.color)
+
+    def _update_health(self):
+        if self._is_hit():
+            self.health -= settings.PLAYER_STRENGTH
+
     def __next__(self):
         """Update the position, and return the next image in the
         sequence for this action."""
         self._update_position()
+        self._update_health()
         return super(Enemy, self).__next__()
 
     def in_bounds(self):
