@@ -7,6 +7,7 @@ from lazer_blast import settings
 from lazer_blast.ships import (
     Enemy,
     Player,
+    HealthBar,
 )
 
 
@@ -21,9 +22,11 @@ class Game(object):
         self.player.surface = self.surface
         self.background = None
         self.running = True
+        self.game_over = False
         self.screen = screen
         self.clock = pygame.time.Clock()
         self.rand = Random()
+        self.health_bar = HealthBar(player=self.player)
 
     def generate_enemies(self):
         if self.rand.random() < settings.SPAWN_RATE:
@@ -78,7 +81,6 @@ class Game(object):
             self.enemies = [x for x in self.enemies
                             if x.in_bounds() and x.health > 0]
             self.generate_enemies()
-        print('Game over!')
 
     def handle_key_events(self):
         for event in pygame.event.get():
@@ -94,11 +96,13 @@ class Game(object):
         for enemy in self.enemies:
             enemy.render(self.screen)
         self.player.render(self.screen)
+        self.health_bar.render(self.screen)
 
         # Once there are images, this is what should be rendered
         for enemy in self.enemies:
             next(enemy)
         next(self.player)
+        next(self.health_bar)
         pygame.display.flip()
 
     def handle_collisions(self):
@@ -106,6 +110,7 @@ class Game(object):
             self.player.health -= settings.ENEMY_STRENGTH
             if self.player.health <= 0:
                 self.running = False
+                self.game_over = True
 
 
 class MenuActions:

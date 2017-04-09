@@ -181,3 +181,23 @@ class LaserBeam(RenderedBase):
 
     def __init__(self, color=(0, 0, 0)):
         self.color = color
+
+
+class HealthBar(RenderedBase):
+
+    def __init__(self, color=(0, 255, 0), player=None):
+        self.color = color
+        self.box = pygame.Rect(
+            settings.SCREEN_WIDTH * 0.25,
+            settings.SCREEN_HEIGHT - 10,
+            settings.SCREEN_WIDTH * 0.5,
+            5,
+        )
+        self.player = player
+
+    def __next__(self):
+        """Updates for width to match the player's health."""
+        if self.player is None:
+            return
+        percent = self.player.health / settings.PLAYER_HEALTH
+        self.box.width = percent * settings.SCREEN_WIDTH * 0.5
