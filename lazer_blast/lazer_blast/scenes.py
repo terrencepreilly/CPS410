@@ -128,10 +128,11 @@ class MenuActions:
 
 class _MenuItems(object):
 
-    def __init__(self):
+    def __init__(self, game):
         # Represents the current item selected (which should match
         # MenuActions.)
         self.current = 0
+        self.game = game
         self.font = pygame.font.SysFont(
             settings.FONT,
             settings.FONT_SIZE,
@@ -149,7 +150,13 @@ class _MenuItems(object):
 
     def render(self):
         ret = list()
-        for index, item in enumerate(settings.ITEMS):
+        items = None
+        if self.game.game_over == False:
+            items = settings.ITEMS
+        else:
+            items = settings.GAME_OVER_ITEMS
+            
+        for index, item in enumerate(items):
             curr = ''
             if index == self.current:
                 curr = '>    {}'.format(item)
@@ -170,6 +177,7 @@ class _MenuItems(object):
             )
 
             ret.append([label, (posx, posy)])
+                
         return ret
 
 
@@ -184,9 +192,9 @@ class Menu(object):
     def __init__(self, screen):
         self.screen = screen
         self.clock = pygame.time.Clock()
-        self.menu_items = _MenuItems()
         self.running = True
         self.game = Game(screen)
+        self.menu_items = _MenuItems(self.game)
 
     def item_select(self, key):
         if key == settings.UP or key == settings.LEFT:
@@ -195,7 +203,12 @@ class Menu(object):
             self.menu_items.next()
         elif key == settings.FIRE:
             if self.menu_items.current == MenuActions.GAME:
-                self.game.run()
+                if self.game.game_over == False:
+                    self.game.run()
+                else:
+                    self.game = Game(self.screen)
+                    self.menu_items.game = self.game
+                    self.game.run()
             elif self.menu_items.current == MenuActions.HIGH_SCORES:
                 pass
             if self.menu_items.current == MenuActions.EXIT:
