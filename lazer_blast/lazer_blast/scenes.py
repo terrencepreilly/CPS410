@@ -8,6 +8,7 @@ from lazer_blast.ships import (
     Enemy,
     Player,
     HealthBar,
+    ScoreBoard,
 )
 
 
@@ -27,6 +28,7 @@ class Game(object):
         self.clock = pygame.time.Clock()
         self.rand = Random()
         self.health_bar = HealthBar(player=self.player)
+        self.score_board = ScoreBoard()
 
     def generate_enemies(self):
         if self.rand.random() < settings.SPAWN_RATE:
@@ -78,6 +80,9 @@ class Game(object):
             self.handle_key_events()
             self.render_items()
             self.handle_collisions()
+            self.score_board.add_points(
+                sum([1 for x in self.enemies if x.health <= 0])
+            )
             self.enemies = [x for x in self.enemies
                             if x.in_bounds() and x.health > 0]
             self.generate_enemies()
@@ -97,6 +102,7 @@ class Game(object):
             enemy.render(self.screen)
         self.player.render(self.screen)
         self.health_bar.render(self.screen)
+        self.score_board.render(self.screen)
 
         # Once there are images, this is what should be rendered
         for enemy in self.enemies:

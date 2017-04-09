@@ -201,3 +201,39 @@ class HealthBar(RenderedBase):
             return
         percent = self.player.health / settings.PLAYER_HEALTH
         self.box.width = percent * settings.SCREEN_WIDTH * 0.5
+
+
+class ScoreBoard(RenderedBase):
+
+    def __init__(self, color=(255, 255, 255)):
+        self.color = color
+        self.font = pygame.font.SysFont(
+            settings.FONT,
+            settings.FONT_SIZE,
+        )
+        self.score = 0
+
+    def add_points(self, amount=1):
+        self.score += amount
+
+    def _render_score(self):
+        return 'Score: {}'.format(self.score * 10)
+
+    def render(self, context):
+        """This should probably be updated once we have images."""
+        label = self.font.render(self._render_score(), 1, settings.FONT_COLOR)
+
+        width = label.get_rect().width
+        height = label.get_rect().height
+
+        if width > 50:
+            posx = settings.SCREEN_WIDTH - width - 10
+        else:
+            posx = settings.SCREEN_WIDTH - 50
+
+        posy = (
+            settings.SCREEN_HEIGHT
+            - height
+            - 5
+        )
+        context.blit(label, (posx, posy))
