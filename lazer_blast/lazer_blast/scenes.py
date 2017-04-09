@@ -189,11 +189,11 @@ class Menu(object):
         self.game = Game(screen)
 
     def item_select(self, key):
-        if key == pygame.K_UP:
+        if key == settings.UP or key == settings.LEFT:
             self.menu_items.prev()
-        elif key == pygame.K_DOWN:
+        elif key == settings.DOWN or key == settings.RIGHT:
             self.menu_items.next()
-        elif key == pygame.K_SPACE:
+        elif key == settings.FIRE:
             if self.menu_items.current == MenuActions.GAME:
                 self.game.run()
             elif self.menu_items.current == MenuActions.HIGH_SCORES:
@@ -209,17 +209,18 @@ class Menu(object):
         while self.running:
             # Limit frame speed to 60 FPS
             self.clock.tick(settings.FPS)
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
-                if event.type == pygame.KEYDOWN:
-                    self.item_select(event.key)
-
+            self.handle_events()
             # Redraw the background
             self.screen.fill(settings.BG_COLOR)
-
             for label, position in self.menu_items.render():
                 self.screen.blit(label, position)
 
             pygame.display.flip()
+
+    def handle_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = False
+            if event.type == pygame.KEYDOWN:
+                self.item_select(event.key)
+
