@@ -39,7 +39,7 @@ SWAP_RIGHT = pygame.K_e
 SWAP_LEFT = pygame.K_q
 ESCAPE = pygame.K_ESCAPE
 
-_dvorak = True
+_dvorak = False
 if _dvorak:
     LEFT = pygame.K_a
     DOWN = pygame.K_o
