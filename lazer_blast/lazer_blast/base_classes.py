@@ -11,10 +11,6 @@ class RenderedBase(object):
     # to a list of images.
     images = dict()
 
-    # Should map a given action/event as a String
-    # to a single sound.
-    sounds = {'fire': '42106__marcuslee__laser-wrath-4.wav', 'hit': '5462__jobro__explosion-5.wav', 'loss1':'275008__alienxxx__mayday-mayday.wav', 'loss2': '367622__fxkid2__explosion-with-debris.wav', 'win':'270528__littlerobotsoundfactory__jingle-win-00.wav' }
-
     # The current action being performed.
     _action = None
     _action_i = -1
