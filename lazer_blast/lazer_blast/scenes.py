@@ -227,13 +227,13 @@ class Menu(object):
                         self.game.run()
                 elif self.menu_items.current == MenuActions.HIGH_SCORES:
                     self.menu_type = 1
-                    self.menu_items = _MenuItems(1)
+                    self.menu_items = _MenuItems(self.game, 1)
                 if self.menu_items.current == MenuActions.EXIT:
                     self.running = False
         else:
             if key == pygame.K_SPACE:
                 self.menu_type = 0
-                self.menu_items = _MenuItems(0)
+                self.menu_items = _MenuItems(self.game, 0)
 
     def run(self):
         """Run the menu.
