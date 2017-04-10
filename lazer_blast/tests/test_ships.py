@@ -16,7 +16,9 @@ class PlayerTestCase(unittest.TestCase):
     def setUp(self, surface=None):
         self.rand = random.Random()
 
-    def test_set_momentum_moves_ship_on_update(self):
+    @mock.patch('lazer_blast.ships.pygame.mixer')
+    @mock.patch('lazer_blast.ships.os')
+    def test_set_momentum_moves_ship_on_update(self, mock_os, mock_mixer):
         player = Player()
         player.box = pygame.Rect(0, 0, 10, 10)
         player.surface = pygame.Surface((500, 500))
@@ -30,7 +32,9 @@ class PlayerTestCase(unittest.TestCase):
         )
         self.assertEqual(player.box, expected)
 
-    def test_cannot_move_player_out_of_bounds(self):
+    @mock.patch('lazer_blast.ships.pygame.mixer')
+    @mock.patch('lazer_blast.ships.os')
+    def test_cannot_move_player_out_of_bounds(self, mock_os, mock_mixer):
         player = Player()
         player.surface = pygame.Surface((500, 500))
         player.box = pygame.Rect((0, 0, 100, 100))
@@ -50,7 +54,9 @@ class PlayerTestCase(unittest.TestCase):
             'It should readjust to be in position'
         )
 
-    def test_next_color_gets_next_in_list(self):
+    @mock.patch('lazer_blast.ships.pygame.mixer')
+    @mock.patch('lazer_blast.ships.os')
+    def test_next_color_gets_next_in_list(self, mock_os, mock_mixer):
         player = Player()
         self.assertEqual(
             player.color,
@@ -80,18 +86,20 @@ class PlayerTestCase(unittest.TestCase):
             settings.COLORS[0],
         )
 
-    @mock.patch('lazer_blast.base_classes.pygame.draw.rect')
-    def test_when_lazer_on_rect_and_circle_drawn(self, mock_draw):
+    @mock.patch('lazer_blast.ships.pygame.mixer')
+    @mock.patch('lazer_blast.ships.os')
+    @mock.patch('lazer_blast.base_classes.pygame.draw.line')
+    def test_when_lazer_on_rect_drawn(self, mock_draw, mock_os, mock_mixer):
         player = Player()
         player.box = pygame.Rect(0, 0, 10, 10)
         player.surface = pygame.Surface((500, 500))
         player.render(player.surface)
-        self.assertEqual(mock_draw.call_count, 1)
+        self.assertEqual(mock_draw.call_count, 0)
         player.flip_laser()
         player.render(player.surface)
         self.assertEqual(
             mock_draw.call_count,
-            3,
+            1,
             'It should have called once for the player, '
             'And one more time for the laser shape. '
         )

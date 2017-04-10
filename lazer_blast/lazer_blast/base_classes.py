@@ -50,7 +50,6 @@ class RenderedBase(object):
     def render(self, context):
         """This should probably be updated once we have images."""
         pygame.draw.rect(context, self.color, self.box)
- #       pygame.draw.line(context, self.color, (self.box.x, self.box.y), (self.box.x, 100) , 3)
 
     def move(self, x, y):
         self.box = self.box.move(x, y)
@@ -58,8 +57,6 @@ class RenderedBase(object):
     def in_bounds(self):
         """Return True if this actor is within the bounds of the surface"""
         return self.surface.get_bounding_rect().contains(self.box) == 1
-
-    
 
 
 class ActorBase(object):
@@ -88,5 +85,3 @@ class ActorBase(object):
     def next_weapon(self):
         """Switch to the next weapon."""
         self._weapon_i = (self._weapon_i + 1) % len(self.weapons)
-   
-

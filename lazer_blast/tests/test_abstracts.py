@@ -25,6 +25,7 @@ class RenderedBaseTestCase(unittest.TestCase):
         rb = RenderedBase()
         self.assertTrue(isinstance(rb.images, dict))
 
+    @unittest.skip('Why is this here?  Sounds don\'t appear to be used.')
     def test_has_sound(self):
         rb = RenderedBase()
         self.assertTrue(isinstance(rb.sounds, dict))

@@ -1,8 +1,10 @@
+import os
 from random import Random
 import pygame
 
 from lazer_blast.base_classes import RenderedBase, ActorBase
 from lazer_blast import settings
+
 
 class Player(ActorBase, RenderedBase):
     """ Player's ship """
@@ -87,12 +89,13 @@ class Player(ActorBase, RenderedBase):
         # all of the rects first.  This way we short-circuit.
         for enemy in enemies:
             if self.box.colliderect(enemy.box):
-                Player.PlaySound(self, "367622__fxkid2__explosion-with-debris.wav");
+                Player.PlaySound(
+                    self, "367622__fxkid2__explosion-with-debris.wav")
                 return True
         return False
 
     def flip_laser(self, state=None):
-        self.PlaySound("42106__marcuslee__laser-wrath-4.wav");
+        self.PlaySound("42106__marcuslee__laser-wrath-4.wav")
         """Changes the state of the laser (on/off).
         Args:
             state: An optional state argument (True or False).
@@ -104,24 +107,24 @@ class Player(ActorBase, RenderedBase):
             # Make sure that _laser is a boolean value
             self._laser = bool(state)
 
-
     def render(self, context):
         if self._laser:
-            # Render the laser
-            #pygame.draw.rect(context, self.color, self.laser)
-            pygame.draw.line(context, self.color,(self.box.x + (0.5 * self.box.width) - 3, self.box.y),(self.box.x + (0.5 * self.box.width) - 3, self.laser.top) , 3) 
+            pygame.draw.line(
+                context,
+                self.color,
+                (self.box.x + (0.5 * self.box.width) - 3, self.box.y),
+                (self.box.x + (0.5 * self.box.width) - 3, self.laser.top),
+                3
+            )
         return super(Player, self).render(context)
 
     def PlaySound(self, file):
-        directory = "/Users/meagonGleason/CPS410/lazer_blast/lazer_blast"
-        import pygame, os
+        directory = "./lazer_blast/assets"
         sound_path = os.path.join(directory, file)
         pygame.mixer.init()
         pygame.mixer.music.load(sound_path)
         pygame.mixer.music.play()
 
-#       win game
-#        PlaySound("270528__littlerobotsoundfactory__jingle-win-00.wav");
 
 class Enemy(ActorBase, RenderedBase):
     """ Enemy ship that combats player. """
@@ -161,7 +164,6 @@ class Enemy(ActorBase, RenderedBase):
         return (self.target._laser
                 and bool(self.target.laser.colliderect(self.box))
                 and self.color == self.target.color)
-                
 
     def _update_health(self):
         if self._is_hit():
