@@ -1,0 +1,35 @@
+Demo Plan
+Group 2
+Terrance Reilly
+James Justice
+Brad Goodall
+Keefer Maresh
+Meagon Gleason
+
+    System architecture(2 minutes)
+We show the the structure of our files, comment on our use of 
+specific modules, and discuss what future additions could be made
+to improve this project's system architecture in the future. 
+
+    Unit testing(2 minutes)
+We will show the source code of our unit tests, run them, then
+discuss what future changes we could make to our unit tests in
+order to improve them for future developers.
+
+    Settings File(2 minutes)
+We will show the source code for the settings file, explain
+the function of each major portion, and discuss the possible
+alternative file types we could use to improve the settings in
+the future.
+
+    Scenes(2 minutes)
+We will explain our use of scenes to refactor the main game loop, 
+show the source code and explain its main components, then
+discuss how we might improve the implementation of this solution
+in the future.
+
+    Gameplay(2 minutes)
+We will explain the premise of this game, the game mechanics involved,
+and demonstrate the game's execution. Noteable gameplay elements will
+include our use of lasers in place of projectile weapons, our decision
+on keyboard layout, the assets used, and the color-matching.
