@@ -115,6 +115,7 @@ class Game(object):
         if self.player.enemies_touching(self.enemies):
             self.player.health -= settings.ENEMY_STRENGTH
             if self.player.health <= 0:
+                ScoreBoard.save_score(self.score_board)
                 self.running = False
                 self.game_over = True
 
