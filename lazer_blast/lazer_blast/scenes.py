@@ -1,7 +1,9 @@
 # This module contains scenes that can be updates interchangeably
 # within the main loop of the game.
+import os
 import pygame
 from random import Random
+import yaml
 
 from lazer_blast import settings
 from lazer_blast.ships import (
@@ -10,6 +12,7 @@ from lazer_blast.ships import (
     HealthBar,
     ScoreBoard,
 )
+
 
 class Game(object):
     """ The scene containing gameplay. """
@@ -114,11 +117,70 @@ class Game(object):
         if self.player.enemies_touching(self.enemies):
             self.player.health -= settings.ENEMY_STRENGTH
             if self.player.health <= 0:
-                self.player.PlaySound("275008__alienxxx__mayday-mayday.wav");
+                self.player.PlaySound("275008__alienxxx__mayday-mayday.wav")
                 pygame.time.wait(2700)
-                self.player.PlaySound("35462__jobro__explosion-5.wav");
+                self.player.PlaySound("35462__jobro__explosion-5.wav")
                 self.running = False
                 self.game_over = True
+
+
+class HighScores(object):
+
+    def __init__(self, screen):
+        self.path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            'assets/high_scores.yaml',
+        )
+        self.screen = screen
+        self.clock = pygame.time.Clock()
+        self.scores = None
+        self.running = True
+        self.load()
+        self.font = pygame.font.SysFont(
+            settings.FONT,
+            settings.FONT_SIZE,
+        )
+
+    def load(self):
+        with open(self.path, 'r') as fin:
+            self.scores = yaml.load(fin)
+        if self.scores is None:
+            self.scores = list()
+
+    def add_score(self, score):
+        self.scores.append(score)
+        self.scores.sort(reverse=True)
+        self.scores = self.scores[:10]
+
+    def save(self):
+        with open(self.path, 'w') as fout:
+            yaml.dump(self.scores, fout)
+
+    def render(self):
+        label = self.font.render('High Scores', 1, settings.FONT_COLOR)
+        curr_y = settings.SCREEN_HEIGHT * 0.25
+        x = settings.SCREEN_WIDTH * 0.5 - label.get_rect().width / 2
+        self.screen.blit(label, (x, curr_y))
+        curr_y += label.get_rect().height + 5
+        for score in self.scores:
+            label = self.font.render(str(score), 1, settings.FONT_COLOR)
+            self.screen.blit(label, (x, curr_y))
+            curr_y += label.get_rect().height + 5
+
+    def handle_key_events(self):
+        # Any key
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                self.running = False
+
+    def run(self):
+        self.running = True
+        while self.running:
+            self.clock.tick(settings.FPS)
+            self.handle_key_events()
+            self.screen.fill(settings.BG_COLOR)
+            self.render()
+            pygame.display.flip()
 
 
 class MenuActions:
@@ -189,6 +251,7 @@ class Menu(object):
         self.menu_items = _MenuItems()
         self.running = True
         self.game = Game(screen)
+        self.high_scores = HighScores(screen)
 
     def item_select(self, key):
         if key == pygame.K_UP:
@@ -198,8 +261,10 @@ class Menu(object):
         elif key == pygame.K_RETURN:
             if self.menu_items.current == MenuActions.GAME:
                 self.game.run()
+                self.high_scores.add_score(self.game.score_board.score)
             elif self.menu_items.current == MenuActions.HIGH_SCORES:
-                pass
+                self.high_scores.running = True
+                self.high_scores.run()
             if self.menu_items.current == MenuActions.EXIT:
                 self.running = False
 
@@ -225,3 +290,4 @@ class Menu(object):
                 self.screen.blit(label, position)
 
             pygame.display.flip()
+        self.high_scores.save()
