@@ -11,7 +11,6 @@ from lazer_blast.ships import (
     ScoreBoard,
 )
 
-
 class Game(object):
     """ The scene containing gameplay. """
 
@@ -115,6 +114,9 @@ class Game(object):
         if self.player.enemies_touching(self.enemies):
             self.player.health -= settings.ENEMY_STRENGTH
             if self.player.health <= 0:
+                self.player.PlaySound("275008__alienxxx__mayday-mayday.wav");
+                pygame.time.wait(2700)
+                self.player.PlaySound("35462__jobro__explosion-5.wav");
                 self.running = False
                 self.game_over = True
 
@@ -128,11 +130,10 @@ class MenuActions:
 
 class _MenuItems(object):
 
-    def __init__(self, game):
+    def __init__(self):
         # Represents the current item selected (which should match
         # MenuActions.)
         self.current = 0
-        self.game = game
         self.font = pygame.font.SysFont(
             settings.FONT,
             settings.FONT_SIZE,
@@ -150,13 +151,7 @@ class _MenuItems(object):
 
     def render(self):
         ret = list()
-        items = None
-        if self.game.game_over == False:
-            items = settings.ITEMS
-        else:
-            items = settings.GAME_OVER_ITEMS
-            
-        for index, item in enumerate(items):
+        for index, item in enumerate(settings.ITEMS):
             curr = ''
             if index == self.current:
                 curr = '>    {}'.format(item)
@@ -177,7 +172,6 @@ class _MenuItems(object):
             )
 
             ret.append([label, (posx, posy)])
-                
         return ret
 
 
@@ -192,23 +186,18 @@ class Menu(object):
     def __init__(self, screen):
         self.screen = screen
         self.clock = pygame.time.Clock()
+        self.menu_items = _MenuItems()
         self.running = True
         self.game = Game(screen)
-        self.menu_items = _MenuItems(self.game)
 
     def item_select(self, key):
-        if key == settings.UP or key == settings.LEFT:
+        if key == pygame.K_UP:
             self.menu_items.prev()
-        elif key == settings.DOWN or key == settings.RIGHT:
+        elif key == pygame.K_DOWN:
             self.menu_items.next()
-        elif key == settings.FIRE:
+        elif key == pygame.K_RETURN:
             if self.menu_items.current == MenuActions.GAME:
-                if self.game.game_over == False:
-                    self.game.run()
-                else:
-                    self.game = Game(self.screen)
-                    self.menu_items.game = self.game
-                    self.game.run()
+                self.game.run()
             elif self.menu_items.current == MenuActions.HIGH_SCORES:
                 pass
             if self.menu_items.current == MenuActions.EXIT:
@@ -222,18 +211,17 @@ class Menu(object):
         while self.running:
             # Limit frame speed to 60 FPS
             self.clock.tick(settings.FPS)
-            self.handle_events()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+                if event.type == pygame.KEYDOWN:
+                    self.item_select(event.key)
+
             # Redraw the background
             self.screen.fill(settings.BG_COLOR)
+
             for label, position in self.menu_items.render():
                 self.screen.blit(label, position)
 
             pygame.display.flip()
-
-    def handle_events(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.running = False
-            if event.type == pygame.KEYDOWN:
-                self.item_select(event.key)
-

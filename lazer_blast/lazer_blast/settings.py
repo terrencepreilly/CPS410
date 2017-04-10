@@ -15,7 +15,6 @@ FONT = 'Arial'
 FONT_SIZE = 30
 FONT_COLOR = (255, 255, 255)
 ITEMS = ('Start Game', 'High Scores', 'Quit')
-GAME_OVER_ITEMS = ('Retry?', 'High Scores', 'Quit') 
 
 # Player Settings
 SPEED = 7
