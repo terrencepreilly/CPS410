@@ -119,8 +119,9 @@ class Player(ActorBase, RenderedBase):
         return super(Player, self).render(context)
 
     def PlaySound(self, file):
-        directory = "./lazer_blast/assets"
-        sound_path = os.path.join(directory, file)
+        directory = os.path.dirname(os.path.abspath(__file__))
+        assets_path = os.path.join(directory, "assets")
+        sound_path = os.path.join(assets_path, file)
         pygame.mixer.init()
         pygame.mixer.music.load(sound_path)
         pygame.mixer.music.play()
