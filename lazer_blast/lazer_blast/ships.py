@@ -219,6 +219,21 @@ class ScoreBoard(RenderedBase):
     def _render_score(self):
         return 'Score: {}'.format(self.score * 10)
 
+    # Save new high scores
+    def save_score(self):
+        try:
+            high_score_file = open("high_score.txt", "r")
+            high_score = int(high_score_file.read())
+            high_score_file.close()
+            print(high_score, self.score*10)
+            if (self.score*10) > high_score:
+                high_score_file = open("high_score.txt", "w")
+                high_score_file.write(str(self.score*10))
+                high_score_file.close()
+        except IOError:
+            # Can't write score.
+            print("Unable to save the high score.")
+    
     def render(self, context):
         """This should probably be updated once we have images."""
         label = self.font.render(self._render_score(), 1, settings.FONT_COLOR)
