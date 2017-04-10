@@ -128,7 +128,7 @@ class MenuActions:
 
 class _MenuItems(object):
 
-    def __init__(self, game):
+    def __init__(self, game, menutype):
         # Represents the current item selected (which should match
         # MenuActions.)
         self.current = 0
@@ -137,7 +137,9 @@ class _MenuItems(object):
             settings.FONT,
             settings.FONT_SIZE,
         )
-
+        self.menu_type = menutype
+        self.items = settings.ITEMS
+        
     def next(self):
         self.current += 1
         if self.current == len(settings.ITEMS):
@@ -150,13 +152,24 @@ class _MenuItems(object):
 
     def render(self):
         ret = list()
-        items = None
         if self.game.game_over == False:
-            items = settings.ITEMS
+            self.items = settings.ITEMS
         else:
-            items = settings.GAME_OVER_ITEMS
-            
-        for index, item in enumerate(items):
+            self.items = settings.GAME_OVER_ITEMS
+        
+        # If high score menu, load the high score
+        if self.menu_type == 1:
+            self.current = 4
+            try:
+                high_score_file = open("high_score.txt", "r")
+                high_score = high_score_file.read()
+                high_score_file.close()
+                self.items = ('The high score is:', high_score, 'Can you beat it?', '', 'Back')
+            except IOError:
+                # Error reading file, no high score
+                print("There is no high score file.")
+        
+        for index, item in enumerate(self.items):
             curr = ''
             if index == self.current:
                 curr = '>    {}'.format(item)
@@ -194,25 +207,32 @@ class Menu(object):
         self.clock = pygame.time.Clock()
         self.running = True
         self.game = Game(screen)
-        self.menu_items = _MenuItems(self.game)
+        self.menu_items = _MenuItems(self.game, 0)
+        self.menu_type = 0
 
     def item_select(self, key):
-        if key == settings.UP or key == settings.LEFT:
-            self.menu_items.prev()
-        elif key == settings.DOWN or key == settings.RIGHT:
-            self.menu_items.next()
-        elif key == settings.FIRE:
-            if self.menu_items.current == MenuActions.GAME:
-                if self.game.game_over == False:
-                    self.game.run()
-                else:
-                    self.game = Game(self.screen)
-                    self.menu_items.game = self.game
-                    self.game.run()
-            elif self.menu_items.current == MenuActions.HIGH_SCORES:
-                pass
-            if self.menu_items.current == MenuActions.EXIT:
-                self.running = False
+        if self.menu_type == 0:
+            if key == settings.UP or key == settings.LEFT:
+                self.menu_items.prev()
+            elif key == settings.DOWN or key == settings.RIGHT:
+                self.menu_items.next()
+            elif key == settings.FIRE:
+                if self.menu_items.current == MenuActions.GAME:
+                    if self.game.game_over == False:
+                        self.game.run()
+                    else:
+                        self.game = Game(self.screen)
+                        self.menu_items.game = self.game
+                        self.game.run()
+                elif self.menu_items.current == MenuActions.HIGH_SCORES:
+                    self.menu_type = 1
+                    self.menu_items = _MenuItems(1)
+                if self.menu_items.current == MenuActions.EXIT:
+                    self.running = False
+        else:
+            if key == pygame.K_SPACE:
+                self.menu_type = 0
+                self.menu_items = _MenuItems(0)
 
     def run(self):
         """Run the menu.
