@@ -15,6 +15,7 @@ FONT = 'Arial'
 FONT_SIZE = 30
 FONT_COLOR = (255, 255, 255)
 ITEMS = ('Start Game', 'High Scores', 'Quit')
+GAME_OVER_ITEMS = ('Retry?', 'High Scores', 'Quit')
 
 # Player Settings
 SPEED = 7
@@ -38,7 +39,7 @@ SWAP_RIGHT = pygame.K_RIGHT
 SWAP_LEFT = pygame.K_LEFT
 ESCAPE = pygame.K_ESCAPE
 
-_dvorak = False
+_dvorak = True  # False
 if _dvorak:
     LEFT = pygame.K_a
     DOWN = pygame.K_o
