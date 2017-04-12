@@ -31,6 +31,7 @@ class Game(object):
         self.rand = Random()
         self.health_bar = HealthBar(player=self.player)
         self.score_board = ScoreBoard()
+        next(self.player)
 
     def generate_enemies(self):
         if self.rand.random() < settings.SPAWN_RATE:
@@ -42,6 +43,7 @@ class Game(object):
             self.enemies.append(
                 enemy
             )
+            next(enemy)
 
     def handle_keydown(self, key):
         if key == settings.LEFT:
@@ -128,7 +130,7 @@ class HighScores(object):
 
     def __init__(self, screen):
         self.path = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
+            settings.BASE_DIR,
             'assets/high_scores.yaml',
         )
         self.screen = screen

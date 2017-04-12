@@ -9,9 +9,11 @@ from lazer_blast import settings
 class Player(ActorBase, RenderedBase):
     """ Player's ship """
 
-    # TODO: Brad's images go here
     images = {
-        'box': [None, None],
+        'fly': [
+            pygame.image.load(os.path.join(settings.BASE_DIR, x))
+            for x in ['assets/player.png']
+        ],
     }
 
     def __init__(self, controls=dict(),
@@ -20,13 +22,10 @@ class Player(ActorBase, RenderedBase):
         self.weapons = weapons
         self._weapon_i = -1 if len(self.weapons) == 0 else 0
         self.controls = controls
-        self.box = pygame.Rect(
-            (settings.SCREEN_WIDTH / 2) - 25,
-            settings.SCREEN_HEIGHT - 50,
-            50,
-            50
-        )
-        self.set_action('box')
+        self.set_action('fly')
+        self.box = self.images['fly'][0].get_rect()
+        self.box.left = settings.SCREEN_WIDTH / 2 - 25
+        self.box.top = settings.SCREEN_HEIGHT - 50
         self.color_i = 0
         self.color = settings.COLORS[self.color_i]
         self._laser = False
@@ -119,8 +118,7 @@ class Player(ActorBase, RenderedBase):
         return super(Player, self).render(context)
 
     def PlaySound(self, file):
-        directory = os.path.dirname(os.path.abspath(__file__))
-        assets_path = os.path.join(directory, "assets")
+        assets_path = os.path.join(settings.BASE_DIR, "assets")
         sound_path = os.path.join(assets_path, file)
         pygame.mixer.init()
         pygame.mixer.music.load(sound_path)
@@ -130,17 +128,34 @@ class Player(ActorBase, RenderedBase):
 class Enemy(ActorBase, RenderedBase):
     """ Enemy ship that combats player. """
 
-    images = {
-        'none': [None, None]
+    images = dict()
+
+    possible_images = {
+        x: pygame.image.load(
+            os.path.join(
+                settings.BASE_DIR,
+                'assets/enemy_{}_1.png'.format(x)
+            )
+        )
+        for x in ['red', 'green', 'blue']
     }
 
+    def _set_images(self):
+        """Since the color is dynamic at creation, the image is, too."""
+        try:
+            color = settings.COLOR_LOOKUP[self.color]
+        except KeyError:
+            color = 'red'
+        self.images = {'fly': [self.possible_images[color]]}
+
     def __init__(self, health=settings.ENEMY_HEALTH,
-                 color=(255, 0, 0, 255), starting_pos=(0, 0)):
+                 color=settings.COLORS[0], starting_pos=(0, 0)):
         self.health = health
         self.weapons = list()
         self.color = color
         self.box = pygame.Rect(starting_pos[0], starting_pos[1], 50, 50)
-        self.set_action('none')
+        self._set_images()
+        self.set_action('fly')
         self.momentum = (0, 1)
         self.rand = Random()
         # Target (player) must be set or enemy will not take damage

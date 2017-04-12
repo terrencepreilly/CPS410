@@ -1,3 +1,4 @@
+import os
 import pygame
 
 FPS = 60
@@ -8,6 +9,12 @@ COLORS = [
     pygame.color.THECOLORS[x]
     for x in ['red', 'green', 'blue']
 ]
+COLOR_LOOKUP = {
+    pygame.color.THECOLORS[x]: x
+    for x in ['red', 'green', 'blue']
+}
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Menu Settings
 BG_COLOR = (0, 0, 0)

@@ -1,3 +1,4 @@
+from itertools import cycle
 import pygame
 
 
@@ -11,9 +12,10 @@ class RenderedBase(object):
     # to a list of images.
     images = dict()
 
-    # The current action being performed.
+    # A cycle of actions to be performed.
     _action = None
-    _action_i = -1
+    # The current action being performed.
+    _curr = None
 
     # The bounding box for this figure
     box = pygame.Rect(0, 0, 0, 0)
@@ -26,8 +28,7 @@ class RenderedBase(object):
             raise Exception('Action not defined for {}'.format(
                 self.__name__
             ))
-        self._action_i = 0
-        self._action = action
+        self._action = cycle(self.images[action])
 
     def __next__(self):
         """Get the next image to render to the screen.
@@ -40,16 +41,17 @@ class RenderedBase(object):
         Where Actor inherets RenderedBase, and display shows the returned
         image.
         """
-        if self._action_i == -1:
+        if self._action is None:
             raise Exception('Action must be set')
-        self._action_i += 1
-        if self._action_i == len(self.images[self._action]):
-            self._action_i = 0
-        return self.images[self._action][self._action_i - 1]
+        self._curr = next(self._action)
+        return self._curr
 
     def render(self, context):
         """This should probably be updated once we have images."""
-        pygame.draw.rect(context, self.color, self.box)
+        if self._curr is not None:
+            context.blit(self._curr, self.box)
+        else:
+            pygame.draw.rect(context, self.color, self.box)
 
     def move(self, x, y):
         self.box = self.box.move(x, y)
