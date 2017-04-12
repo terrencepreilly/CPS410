@@ -1,3 +1,4 @@
+from math import sin
 import os
 import pygame
 
@@ -32,9 +33,16 @@ PLAYER_STRENGTH = 1
 # Enemy Settings
 ENEMY_SPEED = 2
 ENEMY_HEALTH = 5
-SPAWN_RATE = 0.01
+SPAWN_RATE = 0.2
 TURN_BOUND = 0.01
 ENEMY_STRENGTH = 1
+
+
+def get_spawn_function(start_time, compression=0.75):
+    def spawn_function(x):
+        return SPAWN_RATE + 0.2 * sin((x - start_time) * compression)
+    return spawn_function
+
 
 # Control Settings
 LEFT = pygame.K_a

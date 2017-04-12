@@ -3,6 +3,7 @@
 import os
 import pygame
 from random import Random
+from time import time
 import yaml
 
 from lazer_blast import settings
@@ -31,10 +32,12 @@ class Game(object):
         self.rand = Random()
         self.health_bar = HealthBar(player=self.player)
         self.score_board = ScoreBoard()
+        self.spawn = settings.get_spawn_function(time())
         next(self.player)
 
     def generate_enemies(self):
-        if self.rand.random() < settings.SPAWN_RATE:
+        modified_spawn_rate = self.spawn(time())
+        if self.rand.random() < modified_spawn_rate:
             x = self.rand.randint(0, settings.SCREEN_DIMENSIONS[0])
             color = self.rand.choice(settings.COLORS)
             enemy = Enemy(starting_pos=(x, 0), color=color)

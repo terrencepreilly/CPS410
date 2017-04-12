@@ -30,7 +30,7 @@ class Player(ActorBase, RenderedBase):
         self.color = settings.COLORS[self.color_i]
         self._laser = False
         self.laser = pygame.Rect((
-            self.box.left + (0.5 * self.box.width) - 3,
+            self.box.left + (0.5 * self.box.width) - 1,
             self.box.top - settings.SCREEN_HEIGHT,
             3,
             settings.SCREEN_HEIGHT,
@@ -55,8 +55,8 @@ class Player(ActorBase, RenderedBase):
             elif self.box.bottom > height:
                 diffy = height - self.box.bottom
             self.box = self.box.move(diffx, diffy)
-        self.laser.left = self.box.left + (0.5 * self.box.width) - 3
-        self.laser.top = self.box.top - settings.SCREEN_HEIGHT
+        self.laser.left = self.box.left + (0.5 * self.box.width) - 1
+        self.laser.top = self.box.top - settings.SCREEN_HEIGHT + 4
 
     def _update_position(self):
         """Update the Player's position."""
@@ -108,13 +108,7 @@ class Player(ActorBase, RenderedBase):
 
     def render(self, context):
         if self._laser:
-            pygame.draw.line(
-                context,
-                self.color,
-                (self.box.x + (0.5 * self.box.width) - 3, self.box.y),
-                (self.box.x + (0.5 * self.box.width) - 3, self.laser.top),
-                3
-            )
+            pygame.draw.rect(context, self.color, self.laser)
         return super(Player, self).render(context)
 
     def PlaySound(self, file):
