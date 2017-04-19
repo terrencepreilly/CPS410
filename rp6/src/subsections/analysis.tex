@@ -1,0 +1,40 @@
+In terms of functional requirements, our game was a
+total success.  All necessary aspects of the game
+were present: a menu, player, enemies, damage and scores,
+a game-over sequence, sound and colors.  More importantly,
+when asked whether the game was enjoyable, several
+participants stated that it was, in fact, an enjoyable
+game.
+
+However, when observing our participants playing the game,
+it was clear that it quickly became too difficult.  When
+they enemy spawn rate had been set at $0.3$, it was
+difficult for participants to last more than a minute
+while playing the game.  Coupled with unfamiliar controls,
+the game could quickly become frustrating.
+
+However, thanks to our modularized code, and our separation
+of configuration settings from game logic, we were able
+to adjust the game difficulty during the study.  Once the
+enemy spawn rate had been reduced to $0.2$, participants
+were able to last significantly longer, while still
+encountering challenges when encountering waves of enemies.
+
+Additionally, our code was a significant improvement on
+\textit{pylaga}.  In order to quantify the improvement
+we had upon \textit{pylaga}, we used two metrics: the
+\textit{pylint} rating (a rating of how much the code
+conformed to standard Python practices and formatting),
+and test coverage.
+
+The \textit{pylint} rating for \textit{LazerBlast} was
+$5.36$ out of $10$ at time of writing, while that of
+\textit{pylaga} was $4.15$ out of $10$ at time of writing.
+This is a significant improvement, as best practices lead
+to better maintainability of code.
+
+For test coverage, \textit{LazerBlast} is a clear winner.
+\textit{LazerBlast} contained 23 passing tests, while
+\textit{pylaga} had none.  This, again, is an important
+indicator of code quality, as it help developers avoid
+software regression.

@@ -88,14 +88,15 @@ class PlayerTestCase(unittest.TestCase):
 
     @mock.patch('lazer_blast.ships.pygame.mixer')
     @mock.patch('lazer_blast.ships.os')
-    @mock.patch('lazer_blast.base_classes.pygame.draw.line')
-    def test_when_lazer_on_rect_drawn(self, mock_draw, mock_os, mock_mixer):
+    @mock.patch('lazer_blast.ships.pygame.draw.rect')
+    def test_when_laser_on_rect_drawn(self, mock_draw, mock_os, mock_mixer):
         player = Player()
         player.box = pygame.Rect(0, 0, 10, 10)
         player.surface = pygame.Surface((500, 500))
         player.render(player.surface)
         self.assertEqual(mock_draw.call_count, 0)
         player.flip_laser()
+        self.assertTrue(player._laser)
         player.render(player.surface)
         self.assertEqual(
             mock_draw.call_count,

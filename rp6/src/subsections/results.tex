@@ -1,0 +1,18 @@
+Our study successfully implemented enemies of multiple
+colors, which could be destroyed by the player's laser
+(given that it is of the same color.)  The rendering of
+colors were greatly facilitated by the
+\mintinline{python}{render()} methods of the
+\mintinline{python}{Actor} class and \mintinline{python}{Enemy}
+class.  Furthermore, the use of pygame's \mintinline{python}{Rect}
+class made collisions very easy to detect.
+
+The modularity of our menus also made the development of
+extra features very quick.  The score board, for example,
+was developed several days before the presentation.  But,
+because the menus shared a common interface, and were
+loosely coupled, it was easy to add it into the main menu.
+
+We made liberal use of python's \mintinline{python}{__next__}
+method for rendering.  We were able to successfully implement
+rendering of images based on these magic methods.

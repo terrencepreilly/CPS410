@@ -94,12 +94,12 @@ class Player(ActorBase, RenderedBase):
         return False
 
     def flip_laser(self, state=None):
-        self.PlaySound("42106__marcuslee__laser-wrath-4.wav")
         """Changes the state of the laser (on/off).
         Args:
             state: An optional state argument (True or False).
                 If None, the laser will switch states.
         """
+        self.PlaySound("42106__marcuslee__laser-wrath-4.wav")
         if state is None:
             self._laser = not self._laser
         else:
