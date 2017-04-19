@@ -1,0 +1,29 @@
+% Flush title right
+\pretitle{\begin{flushright}}
+\posttitle{\end{flushright}}
+
+\preauthor{\begin{flushright}}
+\postauthor{\end{flushright}}
+
+\predate{\begin{flushright}}
+\postdate{\end{flushright}}
+
+% Define a course description command
+\newcommand{\course}[1]{\gdef\puB{#1}}
+\newcommand{\puB}{}
+\renewcommand{\maketitlehooka}{%
+    \noindent\begin{flushright}\puB\end{flushright}
+}
+
+% Change the order
+\makeatletter
+\def\@maketitle{%
+        \newpage
+        \null
+        \maketitlehooka
+        {\@bspreauthor \@author \@bspostauthor}
+        \maketitlehookb
+        {\@bspredate \@date \@bspostdate}
+        \maketitlehookc
+        {\@bspretitle \@title \@bsposttitle}
+        \maketitlehookd}
