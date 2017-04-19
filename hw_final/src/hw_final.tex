@@ -1,0 +1,62 @@
+\documentclass[a4paper,12pt]{article}
+\author{
+    Reilly, Terrence\
+    \and
+    Justice, James\
+    \and
+    Goodall, Brad\
+    \and
+    Maresh, Keefer\
+    \and
+    Gleason, Meagon\
+}
+\title{CPS410 Project}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{minted}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{pdfpages}
+\setkeys{Gin}{width=\linewidth}
+\usepackage[margin=1.0in]{geometry}
+
+\newcommand{\pdfcrap}[1]{%
+    \clearpage
+    \section*{#1}
+    \addcontentsline{toc}{section}{#1}
+    }
+
+\begin{document}
+    \nocite{*}
+    \maketitle
+    \begin{center}
+        \large CPS410 \\
+        CS Department
+        CMU
+    \end{center}
+
+    \clearpage
+    \tableofcontents
+    \clearpage
+
+    \pdfcrap{Phase I: Team Composition and Problem Definition}
+    \pdfcrap{Phase II: SRS}
+    \pdfcrap{Phase III: SD}
+    \pdfcrap{Phase IV: Coding and Unit Testing}
+    \pdfcrap{Phase V: System Integration and Testing}
+    \pdfcrap{Phase VI: Demo}
+    \pdfcrap{Summary and Conclusion}
+    \pdfcrap{Bibliography}
+
+    \pdfcrap{Appendices}
+    \pdfcrap{Updated/final Functional, Object and Dynamic models}
+    \pdfcrap{Gantt chart for the entire project one Gantt chart}
+        \includepdf[pages=1-,angle=90,scale=0.8]{../assets/LazerBlast.pdf}
+    \pdfcrap{Updated/final program listings}
+        \inputminted{python}{../assets/lazer_blast.py}
+    \pdfcrap{Data files used if any}
+    \pdfcrap{Sample runs}
+    \pdfcrap{User’s manual}
+        \input{../assets/readme}
+    \pdfcrap{Articles Collected and Used if any}
+\end{document}
