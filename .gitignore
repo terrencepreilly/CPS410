@@ -104,3 +104,5 @@ ENV/
 *.out
 *_minted*
 *.toc
+
+pylaga/
